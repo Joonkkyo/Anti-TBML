@@ -22,5 +22,6 @@ from sanction.models import SanctionList
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('sanction/', include('sanction.urls')),
+    path('accounts/', include('accounts.urls')),
     # path('sanction/', SanctionLV.as_view(model=SanctionList), name='index'),
 ]
