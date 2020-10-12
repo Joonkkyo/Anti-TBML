@@ -14,8 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+# from sanction.views import SanctionLV
+from sanction.models import SanctionList
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('sanction/', include('sanction.urls')),
+    # path('sanction/', SanctionLV.as_view(model=SanctionList), name='index'),
 ]
