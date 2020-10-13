@@ -13,7 +13,8 @@ class TableView(tables.SingleTableView):
     paginate_by = 10
     paginate_orphans = 5
     queryset = SanctionList.objects.all()
-    template_name = "sanction/sanction_list.html"
+    template_name = 'django_tables2/bootstrap.html'
+
 # class SanctionLV(SingleTableView):
 #     # 모델의 인스턴스 데이터 객체로 변환
 #     # table = SanctionTable(SanctionList.objects.all())

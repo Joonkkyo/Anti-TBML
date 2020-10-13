@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from config.views import HomeView
 # from sanction.views import SanctionLV
 from sanction.models import SanctionList
 
 
 urlpatterns = [
+    path('', HomeView.as_view(), name='home'),
     path('admin/', admin.site.urls),
     path('sanction/', include('sanction.urls')),
     path('accounts/', include('accounts.urls')),

@@ -90,7 +90,7 @@ DATABASES = {
     }
 }
 
-
+DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 

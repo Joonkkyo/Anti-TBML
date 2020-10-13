@@ -2,46 +2,46 @@
 <!--    {% load render_table from django_tables2 %}-->
 <!--    {% render_table table %}-->
 <!--</div>-->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sanction List</title>
-</head>
-<body>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Sanction List</title>-->
+<!--</head>-->
+<!--<body>-->
 
-<div id="content">
-    <center>
-    <h1>Sanction List</h1>
-    <ul>
-        {% for sanction in object_list %}
-            <li>id : {{ sanction.id }} name : {{ sanction.name }}</li>
-        {% endfor %}
-    </ul>
-    </center>
-</div>
+<!--<div id="content">-->
+<!--    <center>-->
+<!--    <h1>Sanction List</h1>-->
+<!--    <ul>-->
+<!--        {% for sanction in object_list %}-->
+<!--            <li>id : {{ sanction.id }} name : {{ sanction.name }}</li>-->
+<!--        {% endfor %}-->
+<!--    </ul>-->
+<!--    </center>-->
+<!--</div>-->
 
-<center>
-<div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
+<!--<center>-->
+<!--<div class="pagination">-->
+<!--    <span class="step-links">-->
+<!--        {% if page_obj.has_previous %}-->
+<!--            <a href="?page=1">&laquo first</a>-->
+<!--            <a href="?page={{ page_obj.previous_page_number }}">previous</a>-->
+<!--        {% endif %}-->
 
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
+<!--        <span class="current">-->
+<!--            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.-->
+<!--        </span>-->
 
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
-</center>
+<!--        {% if page_obj.has_next %}-->
+<!--            <a href="?page={{ page_obj.next_page_number }}">next</a>-->
+<!--            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>-->
+<!--        {% endif %}-->
+<!--    </span>-->
+<!--</div>-->
+<!--</center>-->
 
 <!--<link href="css/bootstrap.min.css" />-->
-<!--{ % load django_tables2 % }-->
-<!--{ % render_table table % }-->
+{ % load django_tables2 % }
+{ % render_table table % }
 
