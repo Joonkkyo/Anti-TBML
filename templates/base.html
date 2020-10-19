@@ -48,7 +48,7 @@
 
         <div class="col-3 ">
           <div class="site-logo">
-            <a href="index.html" class="font-weight-bold">ANTI-TBML</a>
+            <a href="{% url 'home' %}" class="font-weight-bold">ANTI-TBML</a>
           </div>
         </div>
 
@@ -58,7 +58,7 @@
 
           <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
             <ul class="site-menu main-menu js-clone-nav ml-auto ">
-              <li class="active"><a href="index.html" class="nav-link">Home</a></li>
+              <li class="active"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
               {% if user.is_authenticated %}
               <li><a href="#" class="nav-link">{{user.get_username}}님</a></li>
               <li><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
@@ -68,7 +68,7 @@
               {% endif %}
               <li><a href="#" class="nav-link">About</a></li>
               <li><a href="#" class="nav-link">Document Inspection</a></li>
-              <li><a href="#" class="nav-link">Sanction List</a></li>
+              <li><a href="{% url 'sanction:sanction_list' %}" class="nav-link">Sanction List</a></li>
               <li><a href="#" class="nav-link">Similarity</a></li>
             </ul>
           </nav>
