@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django_tables2',
     'sanction.apps.SanctionConfig',
     'accounts',
-    'document',
+    'document_inspection',
 ]
 
 MIDDLEWARE = [
