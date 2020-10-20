@@ -1,47 +1,56 @@
-<!--<div class="tabel" style="overflow-x: auto; white-space: nowrap;">-->
-<!--    {% load render_table from django_tables2 %}-->
-<!--    {% render_table table %}-->
-<!--</div>-->
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Sanction List</title>-->
-<!--</head>-->
-<!--<body>-->
+{% extends 'base.html' %}
+{% block title %} sanction_list.html {% endblock %}
+{% load static %}
 
-<!--<div id="content">-->
-<!--    <center>-->
-<!--    <h1>Sanction List</h1>-->
-<!--    <ul>-->
-<!--        {% for sanction in object_list %}-->
-<!--            <li>id : {{ sanction.id }} name : {{ sanction.name }}</li>-->
-<!--        {% endfor %}-->
-<!--    </ul>-->
-<!--    </center>-->
-<!--</div>-->
+{% block content %}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th><center>id</center></th>
+            <th><center>name</center></th>
+            <th><center>type</center></th>
+            <th><center>program</center></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for sanction in sanctions %}
+    <tr>
+        <td><center>{{ sanction.id }}</center></td>
+        <td><center>{{ sanction.name }}</center></td>
+        <td><center>{{ sanction.type }}</center></td>
+        <td><center>{{ sanction.program }}</center></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
-<!--<center>-->
-<!--<div class="pagination">-->
-<!--    <span class="step-links">-->
-<!--        {% if page_obj.has_previous %}-->
-<!--            <a href="?page=1">&laquo first</a>-->
-<!--            <a href="?page={{ page_obj.previous_page_number }}">previous</a>-->
-<!--        {% endif %}-->
-
-<!--        <span class="current">-->
-<!--            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.-->
-<!--        </span>-->
-
-<!--        {% if page_obj.has_next %}-->
-<!--            <a href="?page={{ page_obj.next_page_number }}">next</a>-->
-<!--            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>-->
-<!--        {% endif %}-->
-<!--    </span>-->
-<!--</div>-->
-<!--</center>-->
-
-<!--<link href="css/bootstrap.min.css" />-->
-{ % load django_tables2 % }
-{ % render_table table % }
-
+<div class="row mt-2">
+    <div class="col-12">
+        <nav>
+            <ul class="pagination justify-content-center">
+                {% if sanctions.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?p={{sanctions.previous_page_number }}">이전으로</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">이전으로</a>
+                </li>
+                {% endif %}
+                <li class="page-item">
+                    <a class="page-link" href="#">{{sanctions.number}}/{{sanctions.paginator.num_pages}}</a>
+                </li>
+                {% if sanctions.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?p={{sanctions.next_page_number }}">다음으로</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">다음으로</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>
+{% endblock %}

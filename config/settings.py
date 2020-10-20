@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_tables2',
     'sanction.apps.SanctionConfig',
     'accounts',
     'document_inspection',
@@ -91,7 +90,7 @@ DATABASES = {
     }
 }
 
-DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
+# DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 

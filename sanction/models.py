@@ -129,6 +129,7 @@ class DjangoSession(models.Model):
 
 
 class SanctionList(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=160, blank=True, null=True)
     type = models.CharField(max_length=20, blank=True, null=True)
     program = models.CharField(max_length=60, blank=True, null=True)

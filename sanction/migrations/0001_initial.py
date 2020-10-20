@@ -124,6 +124,7 @@ class Migration(migrations.Migration):
                 'managed': False,
             },
         ),
+
         migrations.CreateModel(
             name='DjangoMigrations',
             fields=[
