@@ -65,7 +65,7 @@
               <li><a href="{% url 'register' %}" class="nav-link">Join</a></li>
               {% endif %}
               <li><a href="#" class="nav-link">About</a></li>
-              <li><a href="#" class="nav-link">Document Inspection</a></li>
+              <li><a href="{% url 'document_inspection:file_upload' %}" class="nav-link">Document Inspection</a></li>
               <li><a href="{% url 'sanction:sanction_list' %}" class="nav-link">Sanction List</a></li>
               <li><a href="#" class="nav-link">Similarity</a></li>
             </ul>
@@ -102,6 +102,19 @@
 <script src="/assets/js/aos.js"></script>
 <script src="/assets/js/typed.js"></script>
 <script src="/assets/js/main.js"></script>
+
+
+<script>
+            var typed = new Typed('.typed-words', {
+            strings: ["Business","Work"," Service","Career"],
+            typeSpeed: 80,
+            backSpeed: 80,
+            backDelay: 4000,
+            startDelay: 1000,
+            loop: true,
+            showCursor: true
+            });
+</script>
 
 </body>
 
