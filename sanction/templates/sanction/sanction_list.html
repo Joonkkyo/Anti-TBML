@@ -3,7 +3,13 @@
 {% load static %}
 
 {% block content %}
-<table class="table table-bordered">
+<div>
+    <pre>
+
+
+    </pre>
+</div>
+<table class="table table-striped" align="center">
     <thead>
         <tr>
             <th><center>id</center></th>
@@ -24,33 +30,43 @@
   </tbody>
 </table>
 
-<div class="row mt-2">
-    <div class="col-12">
-        <nav>
-            <ul class="pagination justify-content-center">
-                {% if sanctions.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="?p={{sanctions.previous_page_number }}">이전으로</a>
-                </li>
-                {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">이전으로</a>
-                </li>
-                {% endif %}
-                <li class="page-item">
-                    <a class="page-link" href="#">{{sanctions.number}}/{{sanctions.paginator.num_pages}}</a>
-                </li>
-                {% if sanctions.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?p={{sanctions.next_page_number }}">다음으로</a>
-                </li>
-                {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">다음으로</a>
-                </li>
-                {% endif %}
-            </ul>
-        </nav>
-    </div>
+<div class="page-wrapper">
+    <ul class="pagination justify-content-center">
+        <!-- 이전 페이지 -->
+        {% if sanctions.has_previous %}
+        <li class="page-item">
+            <a href="?page=1" class="page-link">&laquo;</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" 
+               href="?page={{ sanctions.previous_page_number }}" 
+               tabindex="-1">&lt;
+            </a>
+        </li>
+        {% endif %}
+        <!-- 페이지 범위 및 현재 페이지 -->
+        {% for page in paginator_range %}
+        {% if sanctions.number == page %}
+        <li class="page-item active">
+            <span class="page-link">{{ page }}
+                <span class="sr-only">(current)</span>
+            </span>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+        <!-- 다음 페이지 -->
+        {% if sanctions.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ sanctions.next_page_number }}">&gt;</a>
+        </li>
+        <li class="page-item">
+            <a href="?page={{ sanctions.paginator.num_pages }}" class="page-link">&raquo;</a>
+        </li>
+        {% endif %}
+    </ul>
 </div>
 {% endblock %}
