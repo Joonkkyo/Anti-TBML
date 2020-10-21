@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sanction.apps.SanctionConfig',
-    'accounts.apps.AccountsConfig',
-    'document_inspection.apps.DocumentInspectionConfig'
+    'document_inspection.apps.DocumentInspectionConfig',
+    'user.apps.UserConfig',
 ]
 
 MIDDLEWARE = [

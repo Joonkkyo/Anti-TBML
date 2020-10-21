@@ -57,13 +57,6 @@
           <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
             <ul class="site-menu main-menu js-clone-nav ml-auto ">
               <li class="active"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
-              {% if user.is_authenticated %}
-              <li><a href="#" class="nav-link">{{user.get_username}}님</a></li>
-              <li><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
-              {% else %}
-              <li><a href="{% url 'login' %}" class="nav-link">Login</a></li>
-              <li><a href="{% url 'register' %}" class="nav-link">Join</a></li>
-              {% endif %}
               <li><a href="#" class="nav-link">About</a></li>
               <li><a href="{% url 'document_inspection:file_upload' %}" class="nav-link">Document Inspection</a></li>
               <li><a href="{% url 'sanction:sanction_list' %}" class="nav-link">Sanction List</a></li>
@@ -102,7 +95,6 @@
 <script src="/assets/js/aos.js"></script>
 <script src="/assets/js/typed.js"></script>
 <script src="/assets/js/main.js"></script>
-
 
 <script>
             var typed = new Typed('.typed-words', {
