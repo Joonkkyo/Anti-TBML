@@ -57,6 +57,8 @@
           <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
             <ul class="site-menu main-menu js-clone-nav ml-auto ">
               <li class="active"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+              <li><a href="{% url 'user:login' %}" class="nav-link">Login</a></li>
+              <li><a href="{% url 'user:register' %}" class="nav-link">Join</a></li>
               <li><a href="#" class="nav-link">About</a></li>
               <li><a href="{% url 'document_inspection:file_upload' %}" class="nav-link">Document Inspection</a></li>
               <li><a href="{% url 'sanction:sanction_list' %}" class="nav-link">Sanction List</a></li>
