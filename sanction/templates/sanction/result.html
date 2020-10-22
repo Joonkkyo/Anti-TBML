@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %} sanction_add.html {% endblock %}
+{% load static %}
+
+{% block content %}
+<table class="table table-striped" align="center">
+    <thead>
+        <tr>
+            <th><center>id</center></th>
+            <th><center>name</center></th>
+            <th><center>type</center></th>
+            <th><center>program</center></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for sanction in sanctions %}
+    <tr>
+        <td><center>{{ sanction.id }}</center></td>
+        <td><center>{{ sanction.name }}</center></td>
+        <td><center>{{ sanction.type }}</center></td>
+        <td><center>{{ sanction.program }}</center></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
