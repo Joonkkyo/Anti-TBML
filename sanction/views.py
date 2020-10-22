@@ -53,7 +53,25 @@ def result(request):
     if query:
         qs = SanctionList.objects.filter(name__contains=query)
         paginator = Paginator(qs, 10)
-    return render(request, 'sanction/result.html', {'sanctions': qs})
+        page = request.GET.get('page', 1)
+        sanctions = paginator.get_page(page)
+
+        page_numbers_range = 10
+        max_index = len(paginator.page_range)
+        current_page = int(page) if page else 1
+        start_index = int((current_page - 1) / page_numbers_range) * page_numbers_range
+        end_index = start_index + page_numbers_range
+
+        if end_index >= max_index:
+            end_index = max_index
+        paginator_range = paginator.page_range[start_index:end_index]
+
+        context = {
+            'sanctions': sanctions,
+            'sanction_list': qs,
+            'paginator_range': paginator_range,
+        }
+    return render(request, 'sanction/result.html', context)
 
 
 # Create your views here.
