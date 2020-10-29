@@ -5,9 +5,21 @@
 
 {% block content %}
 
-<div class="container-center">
-    File Upload Page
-    <p><a href="{% url 'document_inspection:scan' %}" class="more-29291">Start</a></p>
-</div>
+<!--<div class="container-center">-->
+<!--    <h2>File upload Page</h2>-->
+<!--    <p><a href="{% url 'document_inspection:scan' %}" class="more-29291">Start</a></p>-->
+<!--</div>-->
+
+<h1>파일 업로드</h1>
+<form enctype="multipart/form-data" method="POST" action="">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Upload"/>
+</form>
+
+<br><br>
+<a href="{{ MEDIA_URL }}{{ filepath }}" target="_blank">{{ filename }}</a>
+<br><br>
+</p>
 
 {% endblock %}
