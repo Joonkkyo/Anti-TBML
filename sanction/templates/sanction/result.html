@@ -30,9 +30,6 @@
     {% endfor %}
   </tbody>
 </table>
-{% else %}
-<h4>검색결과가 없습니다.</h4>
-{% endif %}
 
 <div class="page-wrapper">
     <ul class="pagination justify-content-center">
@@ -73,4 +70,8 @@
         {% endif %}
     </ul>
 </div>
+
+{% else %}
+<h4>검색결과가 없습니다.</h4>
+{% endif %}
 {% endblock %}

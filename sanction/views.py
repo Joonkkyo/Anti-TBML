@@ -49,7 +49,7 @@ def sanction_list(request):
 
 
 def result(request):
-    query = request.GET['query']
+    query = request.GET.get('query')
     if query:
         qs = SanctionList.objects.filter(name__contains=query)
         paginator = Paginator(qs, 10)
@@ -72,6 +72,5 @@ def result(request):
             'paginator_range': paginator_range,
         }
     return render(request, 'sanction/result.html', context)
-
 
 # Create your views here.
