@@ -1,6 +1,5 @@
-from django.views.generic import ListView
 from .models import SanctionList
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.paginator import Paginator
 from django.shortcuts import render
 
 
@@ -35,8 +34,6 @@ def sanction_list(request):
 
 
 def result(request):
-    # query = request.GET.get('query')
-    # # if query:
     q = request.GET.get('q', '')
     qs = SanctionList.objects.filter(name__contains=q)
     paginator = Paginator(qs, 10)
@@ -61,4 +58,9 @@ def result(request):
     }
     return render(request, 'sanction/result.html', context)
 
+
+def sanction_add(request):
+    sanction_all = SanctionList.objects.all()
+    context_dict = {'sanctions': sanction_all}
+    return render(request, 'sanction/sanction_add.html', context_dict)
 # Create your views here.

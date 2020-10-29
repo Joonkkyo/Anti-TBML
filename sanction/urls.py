@@ -6,4 +6,5 @@ app_name = 'sanction'
 urlpatterns = [
     path('', views.sanction_list, name='sanction_list'),
     path('search/', views.result, name='result'),
+    path('add/', views.sanction_add, name='sanction_add'),
 ]
