@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} sanction_add.html {% endblock %}
+{% block title %} result.html {% endblock %}
 {% load static %}
 
 {% block content %}
@@ -40,7 +40,7 @@
         </li>
         <li class="page-item">
             <a class="page-link"
-               href="?page={{ sanctions.previous_page_number }}"
+               href="?{% if q %}q={{q}}&{% endif %}page={{ sanctions.previous_page_number }}"
                tabindex="-1">&lt;
             </a>
         </li>
@@ -55,17 +55,17 @@
         </li>
         {% else %}
         <li class="page-item">
-            <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+            <a class="page-link" href="?{% if q %}q={{q}}&{% endif %}page={{ page }}">{{ page }}</a>
         </li>
         {% endif %}
         {% endfor %}
         <!-- 다음 페이지 -->
         {% if sanctions.has_next %}
         <li class="page-item">
-            <a class="page-link" href="?page={{ sanctions.next_page_number }}">&gt;</a>
+            <a class="page-link" href="?{% if q %}q={{q}}&{% endif %}page={{ sanctions.next_page_number }}">&gt;</a>
         </li>
         <li class="page-item">
-            <a href="?page={{ sanctions.paginator.num_pages }}" class="page-link">&raquo;</a>
+            <a href="?{% if q %}q={{q}}&{% endif %}page={{ sanctions.paginator.num_pages }}" class="page-link">&raquo;</a>
         </li>
         {% endif %}
     </ul>
@@ -74,4 +74,11 @@
 {% else %}
 <h4>검색결과가 없습니다.</h4>
 {% endif %}
+
+<div>
+    <form action="{% url 'sanction:result' %}" method="GET">
+      이름: <input type="search" name="q">
+      <input type="submit" value="검색">
+    </form>
+</div>
 {% endblock %}
