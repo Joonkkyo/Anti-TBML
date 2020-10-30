@@ -30,51 +30,56 @@
   </tbody>
 </table>
 
-<div class="page-wrapper">
-    <ul class="pagination justify-content-center">
-        <!-- 이전 페이지 -->
-        {% if sanctions.has_previous %}
-        <li class="page-item">
-            <a href="?page=1" class="page-link">&laquo;</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" 
-               href="?{% if q %}q={{q}}&{% endif %}page={{ sanctions.previous_page_number }}"
-               tabindex="-1">&lt;
-            </a>
-        </li>
-        {% endif %}
-        <!-- 페이지 범위 및 현재 페이지 -->
-        {% for page in paginator_range %}
-        {% if sanctions.number == page %}
-        <li class="page-item active">
-            <span class="page-link">{{ page }}
-                <span class="sr-only">(current)</span>
-            </span>
-        </li>
-        {% else %}
-        <li class="page-item">
-            <a class="page-link" href="?{% if q %}q={{q}}&{% endif %}page={{ page }}">{{ page }}</a>
-        </li>
-        {% endif %}
-        {% endfor %}
-        <!-- 다음 페이지 -->
-        {% if sanctions.has_next %}
-        <li class="page-item">
-            <a class="page-link" href="?{% if q %}q={{q}}&{% endif %}page={{ sanctions.next_page_number }}">&gt;</a>
-        </li>
-        <li class="page-item">
-            <a href="?{% if q %}q={{q}}&{% endif %}page={{ sanctions.paginator.num_pages }}" class="page-link">&raquo;</a>
-        </li>
-        {% endif %}
-    </ul>
-</div>
-
-<div>
-    <form action="{% url 'sanction:result' %}" method="GET">
-        {% csrf_token %}
-        &nbsp;이름: <input type="search" name="q">
-      <input type="submit" value="검색">
-    </form>
+<div class="container">
+    <div class="row justify-content-end">
+        <div class="col-5">
+            <div class="page-wrapper">
+                <ul class="pagination justify-content-center">
+                    <!-- 이전 페이지 -->
+                    {% if sanctions.has_previous %}
+                    <li class="page-item">
+                        <a href="?page=1" class="page-link">&laquo;</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="?{% if q %}q={{q}}&{% endif %}page={{ sanctions.previous_page_number }}"
+                           tabindex="-1">&lt;
+                        </a>
+                    </li>
+                    {% endif %}
+                    <!-- 페이지 범위 및 현재 페이지 -->
+                    {% for page in paginator_range %}
+                    {% if sanctions.number == page %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ page }}
+                            <span class="sr-only">(current)</span>
+                        </span>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?{% if q %}q={{q}}&{% endif %}page={{ page }}">{{ page }}</a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                    <!-- 다음 페이지 -->
+                    {% if sanctions.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?{% if q %}q={{q}}&{% endif %}page={{ sanctions.next_page_number }}">&gt;</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="?{% if q %}q={{q}}&{% endif %}page={{ sanctions.paginator.num_pages }}" class="page-link">&raquo;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-4">
+            <form action="{% url 'sanction:result' %}" method="GET">
+                {% csrf_token %}
+                &nbsp;이름: <input type="search" name="q">
+              <input type="submit" value="검색">
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

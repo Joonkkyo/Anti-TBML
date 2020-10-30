@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class User(models.Model):
     emp_no = models.CharField(max_length=20, verbose_name='사원번호')
     username = models.CharField(max_length=20, verbose_name='이름')
