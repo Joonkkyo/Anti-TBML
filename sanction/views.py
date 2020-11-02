@@ -1,7 +1,7 @@
 from .models import SanctionList
 from django.core.paginator import Paginator
-from django.shortcuts import render
-
+from django.shortcuts import render, HttpResponseRedirect
+from .forms import SanctionRegistration
 
 def sanction_list(request):
     sanction_all = SanctionList.objects.all()
@@ -60,7 +60,33 @@ def result(request):
 
 
 def sanction_add(request):
-    sanction_all = SanctionList.objects.all()
-    context_dict = {'sanctions': sanction_all}
-    return render(request, 'sanction/sanction_add.html', context_dict)
+    if request.method == 'POST':
+        fm = SanctionRegistration(request.POST)
+        if fm.is_valid():
+            nm = fm.cleaned_data['name']
+            ty = fm.cleaned_data['type']
+            pr = fm.cleaned_data['program']
+            reg = SanctionList(name=nm, type=ty, program=pr)
+            reg.save()
+            fm = SanctionRegistration()
+    else:
+        fm = SanctionRegistration(request.POST)
+        sanction_all = SanctionList.objects.all()
+    return render(request, 'sanction/sanction_add.html', {'form': fm, 'sanctions': sanction_all})
+
+
+def sanction_delete(request, id):
+    if request.method == 'POST':
+        sanction = SanctionList.objects.get(pk=id)
+        sanction.delete()
+        context = {
+            'sanctions': sanction,
+        }
+        return render(request, 'sanction/sanction_list.html', context)
+
+# def sanction_update(request):
+#     return render(request, 'sanction/san')
+    # sanction_all = SanctionList.objects.all()
+    # context_dict = {'sanctions': sanction_all}
+    # return render(request, 'sanction/sanction_add.html', context_dict)
 # Create your views here.

@@ -16,6 +16,7 @@
             <th><center>name</center></th>
             <th><center>type</center></th>
             <th><center>program</center></th>
+            <th><center>Action</center></th>
         </tr>
     </thead>
     <tbody>
@@ -25,6 +26,15 @@
         <td><center>{{ sanction.name }}</center></td>
         <td><center>{{ sanction.type }}</center></td>
         <td><center>{{ sanction.program }}</center></td>
+        <td>
+            <center>
+                <a href="#" class="btn btn-warning btn-sm">Edit</a>
+                <form action="{% url 'sanction:sanction_delete' sanction.id %}" method="POST" class="d-inline">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                </form>
+            </center>
+        </td>
     </tr>
     {% endfor %}
   </tbody>
@@ -32,6 +42,9 @@
 
 <div class="container">
     <div class="row justify-content-end">
+         <div class="col-2">
+            <a class="btn btn-primary" href="{% url 'sanction:sanction_add' %}">Add</a>
+        </div>
         <div class="col-5">
             <div class="page-wrapper">
                 <ul class="pagination justify-content-center">

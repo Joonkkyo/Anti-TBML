@@ -3,24 +3,20 @@
 {% load static %}
 
 {% block content %}
-<html>
-<head>
-    <title>myapp</title>
-</head>
-<body>
-    <h2>Simplest Crud Example</h2>
-    <p>This shows a list of names and lets you Create, Update and Delete them.</p>
-    {% if names_from_context %}
-        <ul>
-            {% for sanction in sanctions %}
-                <li>{{ sanction.name }}  <button>Delete</button> <button>Update</button></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <h3>Please go to the admin and add a Name under 'MYAPP'</h3>
-    {% endif %}
-    <h3>Add a Name</h3>
-    <button>Create</button>
-</body>
-</html>
+<div>
+    <center>
+        <h2>Add Sanction List</h2>
+    </center>
+    <br><br>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{form}}
+        </table>
+        <br><br>
+        <center>
+            <input type="submit" class="btn btn-success" value="Add">
+        </center>
+    </form>
+</div>
 {% endblock %}
