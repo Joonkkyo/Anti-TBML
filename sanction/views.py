@@ -1,7 +1,9 @@
 from .models import SanctionList
+from django.views.generic.base import TemplateView
 from django.core.paginator import Paginator
 from django.shortcuts import render, HttpResponseRedirect
 from .forms import SanctionRegistration
+
 
 def sanction_list(request):
     sanction_all = SanctionList.objects.all()
@@ -71,19 +73,24 @@ def sanction_add(request):
             fm = SanctionRegistration()
     else:
         fm = SanctionRegistration(request.POST)
-        sanction_all = SanctionList.objects.all()
-    return render(request, 'sanction/sanction_add.html', {'form': fm, 'sanctions': sanction_all})
+    return render(request, 'sanction/sanction_add.html', {'form': fm})
 
 
 def sanction_delete(request, id):
     if request.method == 'POST':
         sanction = SanctionList.objects.get(pk=id)
         sanction.delete()
-        context = {
-            'sanctions': sanction,
-        }
-        return render(request, 'sanction/sanction_list.html', context)
 
+        # sanctions = SanctionList.objects.all()
+        # context = {
+        #     'sanctions': sanctions,
+        # }
+        # return render(request, 'sanction/sanction_list.html', context)
+        return HttpResponseRedirect('/sanction/')
+
+
+class SanctionAddDoneTV(TemplateView):
+    template_name = 'sanction/sanction_add_done.html'
 # def sanction_update(request):
 #     return render(request, 'sanction/san')
     # sanction_all = SanctionList.objects.all()

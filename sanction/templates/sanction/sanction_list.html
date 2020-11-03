@@ -12,10 +12,10 @@
 <table class="table table-striped" align="center">
     <thead>
         <tr>
-            <th><center>id</center></th>
-            <th><center>name</center></th>
-            <th><center>type</center></th>
-            <th><center>program</center></th>
+            <th><center>ID</center></th>
+            <th><center>Name</center></th>
+            <th><center>Type</center></th>
+            <th><center>Program</center></th>
             <th><center>Action</center></th>
         </tr>
     </thead>
@@ -28,10 +28,10 @@
         <td><center>{{ sanction.program }}</center></td>
         <td>
             <center>
-                <a href="#" class="btn btn-warning btn-sm">Edit</a>
+                <a href="#" class="btn btn-warning" style="line-height:0.5">Edit</a>
                 <form action="{% url 'sanction:sanction_delete' sanction.id %}" method="POST" class="d-inline">
                     {% csrf_token %}
-                    <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                    <input type="submit" class="btn btn-danger" style="line-height:0.5" value="Delete">
                 </form>
             </center>
         </td>
@@ -43,9 +43,9 @@
 <div class="container">
     <div class="row justify-content-end">
          <div class="col-2">
-            <a class="btn btn-primary" href="{% url 'sanction:sanction_add' %}">Add</a>
+            <a class="btn btn-dark" href="{% url 'sanction:sanction_add' %}">Add</a>
         </div>
-        <div class="col-5">
+        <div class="col-7">
             <div class="page-wrapper">
                 <ul class="pagination justify-content-center">
                     <!-- 이전 페이지 -->
@@ -86,7 +86,7 @@
                 </ul>
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-4.5">
             <form action="{% url 'sanction:result' %}" method="GET">
                 {% csrf_token %}
                 &nbsp;이름: <input type="search" name="q">
