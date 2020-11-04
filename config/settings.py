@@ -37,9 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
     'sanction.apps.SanctionConfig',
     'document_inspection.apps.DocumentInspectionConfig',
-    'user.apps.UserConfig',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [

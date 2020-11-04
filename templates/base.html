@@ -7,18 +7,56 @@
   <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700,900" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/fonts/icomoon/style.css">
-  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/assets/css/bootstrap-datepicker.css">
-  <link rel="stylesheet" href="/assets/css/jquery.fancybox.min.css">
-  <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
-  <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
-  <link rel="stylesheet" href="/assets/fonts/flaticon/font/flaticon.css">
-  <link rel="stylesheet" href="/assets/css/aos.css">
 
   <!-- MAIN CSS -->
   <link rel="stylesheet" href="/assets/css/style.css">
+
+  <header class="site-navbar site-navbar-target" role="banner">
+    <div class="container">
+      <div class="row align-items-center position-relative">
+        <div class="col-3 ">
+          <div class="site-logo">
+            <a href="{% url 'home' %}" class="font-weight-bold">ANTI-TBML</a>
+          </div>
+        </div>
+
+        <ul class="navbar-nav ml-5 mr-5">
+          <li class="nav-item dropdown mx-1 btn btn-primary">
+            {% if user.is_active %}
+            <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">
+              <i class="fas fa-user"></i>&ensp;{% firstof user.get_short_name user.get_username%}&ensp;
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+              <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
+            </div>
+            {% else %}
+            <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">
+              <i class="fas fa-user"></i>&ensp;Anonymous&ensp;
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+              <a class="dropdown-item" href="{% url 'register' %}">Register</a>
+            </div>
+            {% endif %}
+          </li>
+        </ul>
+
+        <div class="col-9  text-right">
+          <span class="d-inline-block d-lg-none"><a href="#" class="text-primary site-menu-toggle js-menu-toggle py-5"><span class="icon-menu h3 text-primary"></span></a></span>
+          <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
+            <ul class="site-menu main-menu js-clone-nav ml-auto ">
+              <li class="active"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+              <li><a href="{% url 'about' %}" class="nav-link">About</a></li>
+              <li><a href="{% url 'document_inspection:file_upload' %}" class="nav-link">Document Inspection</a></li>
+              <li><a href="{% url 'sanction:sanction_list' %}" class="nav-link">Sanction List</a></li>
+              <li><a href="#" class="nav-link">Similarity</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
 
 </head>
 
@@ -34,39 +72,6 @@
     <div class="site-mobile-menu-body"></div>
   </div>
 
-
-
-  <header class="site-navbar site-navbar-target" role="banner">
-
-    <div class="container">
-      <div class="row align-items-center position-relative">
-
-        <div class="col-3 ">
-          <div class="site-logo">
-            <a href="{% url 'home' %}" class="font-weight-bold">ANTI-TBML</a>
-          </div>
-        </div>
-
-        <div class="col-9  text-right">
-
-          <span class="d-inline-block d-lg-none"><a href="#" class="text-primary site-menu-toggle js-menu-toggle py-5"><span class="icon-menu h3 text-primary"></span></a></span>
-
-          <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
-            <ul class="site-menu main-menu js-clone-nav ml-auto ">
-              <li class="active"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
-              <li><a href="{% url 'user:login' %}" class="nav-link">Login</a></li>
-              <li><a href="{% url 'user:register' %}" class="nav-link">Join</a></li>
-              <li><a href="#" class="nav-link">About</a></li>
-              <li><a href="{% url 'document_inspection:file_upload' %}" class="nav-link">Document Inspection</a></li>
-              <li><a href="{% url 'sanction:sanction_list' %}" class="nav-link">Sanction List</a></li>
-              <li><a href="#" class="nav-link">Similarity</a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </div>
-  </header>
-
   <div class="ftco-blocks-cover-1">
 <!--    <div class="site-section-cover half-bg">-->
     <div class="site-section-cover">
@@ -79,6 +84,17 @@
     </div>
   </div>
 </div>
+
+
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700,900" rel="stylesheet">
+<link rel="stylesheet" href="/assets/fonts/icomoon/style.css">
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="/assets/css/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="/assets/fonts/flaticon/font/flaticon.css">
+<link rel="stylesheet" href="/assets/css/aos.css">
 
 <script src="/assets/js/jquery-3.3.1.min.js"></script>
 <script src="/assets/js/jquery-migrate-3.0.0.js"></script>

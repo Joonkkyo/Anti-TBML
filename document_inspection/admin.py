@@ -3,4 +3,4 @@ from document_inspection.models import File
 
 @admin.register(File)
 class SanctionAdmin(admin.ModelAdmin):
-    list_display = ('name', 'file_path')
+    list_display = ['file_path']

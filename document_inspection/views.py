@@ -14,7 +14,6 @@ from .forms import FileForm
 def showfile(request):
     lastfile = File.objects.last()
     file_path = lastfile.file_path
-    name = lastfile.name
 
     form = FileForm(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -23,7 +22,6 @@ def showfile(request):
     context = {
         'file_path':file_path,
         'form':form,
-        'name':name
     }
 
     return render(request, 'document_inspection/file_upload.html', context)
