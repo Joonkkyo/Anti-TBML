@@ -30,10 +30,11 @@
         <td>
             <center>
                 <a href="#" class="btn btn-warning" style="line-height:0.5">Edit</a>
-                <form action="{% url 'sanction:sanction_delete' sanction.id %}" method="POST" class="d-inline">
-                    {% csrf_token %}
-                    <input type="submit" class="btn btn-danger" style="line-height:0.5" value="Delete">
-                </form>
+                <button type="button" data-toggle="modal" data-target="#Delete" class="btn btn-danger" style="line-height:0.5">Delete</button>
+<!--                <form action="{% url 'sanction:sanction_delete' sanction.id %}" method="POST" class="d-inline">-->
+<!--                    {% csrf_token %}-->
+<!--                    <input type="submit" class="btn btn-danger" style="line-height:0.5" value="Delete">-->
+<!--                </form>-->
             </center>
         </td>
     </tr>

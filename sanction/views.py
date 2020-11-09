@@ -73,9 +73,11 @@ def sanction_add(request):
             reg = SanctionList(name=nm, type=ty, program=pr)
             reg.save()
             fm = SanctionRegistration()
+        return render(request, 'sanction/sanction_add_done.html', {'form': fm})
+
     else:
         fm = SanctionRegistration(request.POST)
-    return render(request, 'sanction/sanction_add.html', {'form': fm})
+        return render(request, 'sanction/sanction_add.html', {'form': fm})
 
 
 def sanction_delete(request, id):
@@ -83,15 +85,22 @@ def sanction_delete(request, id):
         sanction = SanctionList.objects.get(pk=id)
         sanction.delete()
 
-        # sanctions = SanctionList.objects.all()
-        # context = {
-        #     'sanctions': sanctions,
-        # }
-        # return render(request, 'sanction/sanction_list.html', context)
         return HttpResponseRedirect('/sanction/')
 
 
+def sanction_update(request, id):
+    if request.model == 'POST':
+        sanction = SanctionList.objects.get(pk=id)
+        fm = SanctionRegistration(request.POST, instance=sanction)
+        if fm.is_valid():
+            fm.save()
+    return render(request)
+
+
 class SanctionAddDoneTV(TemplateView):
+    # data = SanctionList.objects.all()
+    # for x in data:
+    #     print(x.name)
     template_name = 'sanction/sanction_add_done.html'
 # def sanction_update(request):
 #     return render(request, 'sanction/san')
