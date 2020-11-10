@@ -1,7 +1,7 @@
 from .models import SanctionList
 from django.views.generic.base import TemplateView
 from django.core.paginator import Paginator
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from .forms import SanctionRegistration
 
 
@@ -83,6 +83,7 @@ def sanction_add(request):
 def sanction_delete(request, id):
     if request.method == 'POST':
         sanction = SanctionList.objects.get(pk=id)
+        print(sanction.id)
         sanction.delete()
 
         return HttpResponseRedirect('/sanction/')

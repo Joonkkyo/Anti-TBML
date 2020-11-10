@@ -1894,6 +1894,7 @@ h1, h2, h3, h4, h5,
 
 @media screen and (min-width: 768px) {
         .modal:before {
+                z-index: -1;
                 display: inline-block;
                 vertical-align: middle;
                 content: " ";
@@ -1902,6 +1903,7 @@ h1, h2, h3, h4, h5,
 }
 
 .modal-dialog {
+        z-index: 1500;
         display: inline-block;
         text-align: left;
         vertical-align: middle;
