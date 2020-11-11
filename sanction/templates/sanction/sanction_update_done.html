@@ -1,0 +1,13 @@
+{% extends 'base2.html' %}
+{% block title %} sanction_update_done.html {% endblock %}
+{% load static %}
+
+{% block content %}
+<div>
+    <center>
+        <h2>Sanction List가 성공적으로 수정되었습니다.</h2>
+        <br><br>
+        <a href="{% url 'sanction:sanction_list' %}" class="btn btn-primary">List로 이동</a>
+    </center>
+</div>
+{% endblock %}

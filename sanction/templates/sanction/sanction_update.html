@@ -1,0 +1,26 @@
+{% extends 'base2.html' %}
+{% load bootstrap4 %}
+{% block title %} sanction_update.html {% endblock %}
+{% load static %}
+
+{% block content %}
+<div>
+    <center>
+        <h2>Update Sanction List</h2>
+    </center>
+    <br><br>
+    <center>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{form}}
+        </table>
+        <br><br>
+        <center>
+            <input type="submit" class="btn btn-primary btn-sm" value="Save">
+            <a href="{% url 'sanction:sanction_list' %}" class="btn btn-primary btn-sm">Back</a>
+        </center>
+    </form>
+    </center>
+</div>
+{% endblock %}
