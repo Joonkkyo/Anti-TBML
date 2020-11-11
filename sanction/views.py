@@ -26,6 +26,8 @@ def sanction_list(request):
         end_index = max_index
     paginator_range = paginator.page_range[start_index:end_index]
 
+    # name_list = [x.name for x in sanction_all]
+    # print(name_list)
     context = {
         'sanctions': sanctions,
         'sanction_list': qs,
@@ -97,3 +99,5 @@ class SanctionAddDoneTV(TemplateView):
     # context_dict = {'sanctions': sanction_all}
     # return render(request, 'sanction/sanction_add.html', context_dict)
 # Create your views here.
+
+

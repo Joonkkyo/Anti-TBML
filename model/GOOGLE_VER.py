@@ -72,7 +72,7 @@ def get_document_bounds(document, feature):
     return bounds
 
 
-def boxed_image(image, document, fileout='output.jpg'):
+def boxed_image(image, document, fileout):
     image_ = Image.open(image)
     bounds = get_document_bounds(document, FeatureType.BLOCK)
     draw_boxes(image_, bounds, 'blue')
@@ -119,13 +119,16 @@ def res_to_json(response, save=True, senlen=15, thresh=0.8):
                         ])
                         for v in word.bounding_box.vertices:
                             place.append((v.x, v.y))
-                        output[word_text] = {'place': place}
+                        similar_word, similarity = find_similar_word(word_text, sanc_list, thresh)
+                        output[word_text] = {'place': place, 'danger': similarity, 'similar_word': similar_word}
 
-    if save == True:
-        print('json file saved!')
-        with open('./ex.json', 'w') as file:
-            json.dump(output, file, indent=1)
-    return output
+    output_name = './' + image[::-1].strip('gpj.').strip('/')[::-1]
+
+    if save is True:
+            print('json file saved!')
+            with open(output_name+'.json', 'w') as file:
+                json.dump(output, file, indent=1)
+    return output, output_name
 
 
 # edit distance 구함
@@ -164,7 +167,7 @@ def str_distance(str1_, str2_):
 
         # substitute or copy, delete, insert
         #    dist = table[len2][len1]
-    dist = (len(str1) - table[len2][len1]) / len(str2)
+    dist = (len(str1) - table[len2][len1]) / len(str1)
     return dist
 
 
@@ -179,8 +182,17 @@ def find_similar_word(word, sanc_list, thresh):
     return list(similar_word.keys()), list(similar_word.values())
 
 
-sanc_list = ['Busan', 'Seoul']
-
+sanc_list = ['Busan', 'Seoul',
+             'AEROCARIBBEAN AIRLINES',
+             'ANGLO-CARIBBEAN CO., LTD.',
+             'BANCO NACIONAL DE CUBA',
+             'BOUTIQUE LA MAISON',
+             'CASA DE CUBA',
+             'CECOEX, S.A',
+             'CIMEX',
+             'CIMEX IBERICA',
+             'CIMEX, S.A.',
+             'COMERCIAL IBEROAMERICANA, S.A.']
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -190,7 +202,8 @@ if __name__ == '__main__':
 
     image = args.detect_file
     response, document = get_document(image)
-    res_to_json(response)
-    boxed_image(image, document, 'boxed_ex.jpg')
+    _, output_name = res_to_json(response)
+    output_image = output_name+'.jpg'
+    boxed_image(image, document, str(output_image))
 
 
