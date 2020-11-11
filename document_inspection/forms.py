@@ -1,8 +1,8 @@
 from django import forms
-from document_inspection.models import File
+from document_inspection.models import Image
 
 
 class FileForm(forms.ModelForm):
     class Meta:
-        model = File
-        fields = ["file_path"]
+        model = Image
+        fields = ['file_path']

@@ -1,7 +1,9 @@
 from .models import SanctionList
 from django.views.generic.base import TemplateView
+from django.views.generic.edit import UpdateView
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect
+from django.urls import reverse_lazy
 from .forms import SanctionRegistration
 
 
@@ -90,12 +92,15 @@ def sanction_delete(request, id):
 
 
 def sanction_update(request, id):
-    if request.model == 'POST':
+    if request.method == 'POST':
         sanction = SanctionList.objects.get(pk=id)
         fm = SanctionRegistration(request.POST, instance=sanction)
         if fm.is_valid():
             fm.save()
-    return render(request)
+    else:
+        sanction = SanctionList.objects.get(pk=id)
+        fm = SanctionRegistration(request.POST, instance=sanction)
+    return render(request, 'sanction/sanction_update.html', {'id':id})
 
 
 class SanctionAddDoneTV(TemplateView):

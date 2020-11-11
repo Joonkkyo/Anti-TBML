@@ -2,7 +2,6 @@
 {% load bootstrap4 %}
 {% block title %} sanction_list.html {% endblock %}
 {% load static %}
-
 {% block content %}
 <div>
     <pre>
@@ -29,35 +28,11 @@
         <td><center>{{ sanction.program }}</center></td>
         <td>
             <center>
-                <a href="#" class="btn btn-warning" style="line-height:0.5">Edit</a>
+                <a class="btn btn-warning" href="{% url 'sanction:sanction_update' sanction.id %}" style="line-height:0.5">Edit</a>
                 <form action="{% url 'sanction:sanction_delete' sanction.id %}" method="POST" class="d-inline" onsubmit="return confirm('정말 삭제하시겠습니까?')">
                     {% csrf_token %}
                     <input type="submit" class="btn btn-danger" style="line-height:0.5" value="Delete">
                 </form>
-<!--                <button type="button" data-toggle="modal" data-target="#Delete" class="btn btn-danger" style="line-height:0.5">Delete</button>-->
-<!--                    <div class="modal fade" id="Delete" aria-hidden="true" data-backdrop="false">-->
-<!--                    <div class="modal-dialog">-->
-<!--                        <div class="modal-content">-->
-<!--                            <div class="modal-header">-->
-<!--                                <h4 class="modal-title">Warning</h4>-->
-<!--                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                                    <span aria-hidden="true">&times;</span>-->
-<!--                                </button>-->
-<!--                            </div>-->
-<!--                            <div class="modal-body">-->
-<!--                                <h3>정말 삭제하시겠습니까?</h3>-->
-<!--                            </div>-->
-
-<!--                            <div class="modal-footer">-->
-<!--                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--                                <form action="{% url 'sanction:sanction_delete' sanction.id %}" method="POST">-->
-<!--                                    {% csrf_token %}-->
-<!--                                    <input type="submit" class="btn btn-danger" value="Delete">-->
-<!--                                </form>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
             </center>
         </td>
     </tr>
@@ -120,4 +95,23 @@
         </div>
     </div>
 </div>
+
+<!--<div class="modal-dialog">-->
+<!--    <div class="modal-content">-->
+<!--        <div class="modal-header">-->
+<!--            <h4 class="modal-title">Warning</h4>-->
+<!--            <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                <span aria-hidden="true">&times;</span>-->
+<!--            </button>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+<!--            {{form}}-->
+<!--        </div>-->
+<!--        <div class="modal-footer">-->
+<!--            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--            <button type="submit" class="btn btn-secondary">Confirm</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 {% endblock %}
+

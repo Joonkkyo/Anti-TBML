@@ -1894,6 +1894,25 @@ h1, h2, h3, h4, h5,
 
 @media screen and (min-width: 768px) {
         .modal:before {
+                display: inline-block;
+                vertical-align: middle;
+                content: " ";
+                height: 100%;
+        }
+}
+
+.modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+}
+
+.modal {
+        text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+        .modal:before {
                 z-index: -1;
                 display: inline-block;
                 vertical-align: middle;

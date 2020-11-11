@@ -11,9 +11,13 @@
             <input type="file" name="document">
             <button type="submit">Upload file</button>
         </form>
-        {% if url %}
-            <p>Uploaded file: <a href="{{ url }}">{{ url }}</a></p>
+    </tabel><br><br>
+    <div>
+        <center>
+        {% if uploaded_file %}
+        <img src="{{url}}">
         {% endif %}
-    </tabel>
+        </center>
+    </div>
 
 {% endblock %}
