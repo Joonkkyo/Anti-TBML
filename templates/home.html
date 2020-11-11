@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 {% load bootstrap4 %}
 {% block title %} home.html {% endblock %}
 {% load static %}
@@ -6,7 +6,7 @@
 {% block content %}
 <div class="col-lg-8">
   <h1 class="mb-5 text-primary font-weight-bold"  data-aos="fade-up">Grow Up Your <span class="typed-words">Business</span>.</h1>
-  <p data-aos="fade-up" data-aos-delay="100"><a href="{% url 'document_inspection:file_upload' %}" class="more-2929">START</a></p>
+  <p data-aos="fade-up" data-aos-delay="100"><a href="{% url 'document_inspection:upload' %}" class="more-2929">START</a></p>
 </div>
 {% endblock %}
 

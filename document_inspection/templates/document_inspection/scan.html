@@ -1,14 +1,16 @@
 <!doctype html>
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 {% load bootstrap4 %}
 {% load static %}
 
 {% block content %}
 
-
-<div class="container-center">
-    <h2>Scan Page</h2>
-    <p><a href="{% url 'home' %}" class="more-29291">돌아가기</a></p>
-</div>
+<table>
+    <div class="container-center">
+        <h2>Scan Page</h2>
+        <input name="document_file" type="file">
+        <p><a href="{% url 'home' %}" class="more-29291">돌아가기</a></p>
+    </div>
+</table>
 
 {% endblock %}

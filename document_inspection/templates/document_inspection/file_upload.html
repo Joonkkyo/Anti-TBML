@@ -1,41 +1,28 @@
 <!doctype html>
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 {% load bootstrap4 %}
 {% load static %}
 
 {% block content %}
 
-<!--<div class="container-center">-->
-<!--    <h2>File upload Page</h2>-->
-<!--    <p><a href="{% url 'document_inspection:scan' %}" class="more-29291">Start</a></p>-->
-<!--</div>-->
-
 <div class="container-center">
-     <div class="row mt-5">
-        <h1>파일 업로드</h1>
+    <div class="row mt-5">
+        <h2>파일 업로드</h2>
     </div>
-
-     <div class="row mt-5">
-         <form enctype="multipart/form-data" method="POST" action="">
-        {% csrf_token %}
-        <!--{{ form.as_p }}-->
-        {{ form }}
-        <input type="submit" value="Upload"/>
-        </form>
-    </div>
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="document">
+    <button type="submit">Upload file</button>
+    </form>
+    {% if url %}
+        <p>Uploaded file: <a href="{{ url }}">{{ url }}</a></p>
+    {% endif %}
 
 </div>
-
 <br>
 <br>
 <div>
-
-
 </div>
-
-<br><br>
-<a href="{{ MEDIA_URL }}{{ filepath }}" target="_blank">{{ filename }}</a>
-<br><br>
 </p>
 
 {% endblock %}

@@ -10,6 +10,7 @@
 
   <!-- MAIN CSS -->
   <link rel="stylesheet" href="/assets/css/style.css">
+</head>
 
   <header class="site-navbar site-navbar-target" role="banner">
     <div class="container">
@@ -48,7 +49,7 @@
             <ul class="site-menu main-menu js-clone-nav ml-auto ">
               <li class="active"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
               <li><a href="{% url 'about' %}" class="nav-link">About</a></li>
-              <li><a href="{% url 'document_inspection:file_upload' %}" class="nav-link">Document Inspection</a></li>
+              <li><a href="{% url 'document_inspection:upload' %}" class="nav-link">Document Inspection</a></li>
               <li><a href="{% url 'sanction:sanction_list' %}" class="nav-link">Sanction List</a></li>
               <li><a href="#" class="nav-link">Similarity</a></li>
             </ul>
@@ -57,8 +58,6 @@
       </div>
     </div>
   </header>
-
-</head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
