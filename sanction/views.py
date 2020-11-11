@@ -97,17 +97,23 @@ def sanction_update(request, id):
         fm = SanctionRegistration(request.POST, instance=sanction)
         if fm.is_valid():
             fm.save()
+        return render(request, 'sanction/sanction_update_done.html', {'form': fm})
     else:
         sanction = SanctionList.objects.get(pk=id)
         fm = SanctionRegistration(request.POST, instance=sanction)
-    return render(request, 'sanction/sanction_update.html', {'id':id})
+        return render(request, 'sanction/sanction_update.html', {'form': fm})
 
 
 class SanctionAddDoneTV(TemplateView):
+    template_name = 'sanction/sanction_add_done.html'
+
+
+class SanctionUpdateDoneTV(TemplateView):
+    template_name = 'sanction/sanction_update_done.html'
+
     # data = SanctionList.objects.all()
     # for x in data:
     #     print(x.name)
-    template_name = 'sanction/sanction_add_done.html'
 # def sanction_update(request):
 #     return render(request, 'sanction/san')
     # sanction_all = SanctionList.objects.all()

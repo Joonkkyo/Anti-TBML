@@ -1,6 +1,6 @@
 from django.urls import path
 from sanction import views
-from sanction.views import SanctionAddDoneTV
+from sanction.views import SanctionAddDoneTV, SanctionUpdateDoneTV
 
 app_name = 'sanction'
 
@@ -9,6 +9,7 @@ urlpatterns = [
     path('search/', views.result, name='result'),
     path('add/', views.sanction_add, name='sanction_add'),
     path('add/done/', SanctionAddDoneTV.as_view(), name='sanction_add_done'),
+    path('update/done/', SanctionUpdateDoneTV.as_view(), name='sanction_update_done'),
     path('delete/<int:id>/', views.sanction_delete, name='sanction_delete'),
     path('update/<int:id>/', views.sanction_update, name='sanction_update'),
 ]

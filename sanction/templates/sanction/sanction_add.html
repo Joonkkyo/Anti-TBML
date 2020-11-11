@@ -9,6 +9,7 @@
         <h2>Add Sanction List</h2>
     </center>
     <br><br>
+    <center>
     <form action="." method="POST">
         {% csrf_token %}
         <table>
@@ -16,9 +17,11 @@
         </table>
         <br><br>
         <center>
-            <input type="submit" class="btn btn-primary btn-sm" value="Add">
+            <input type="submit" class="btn btn-primary" value="Add">
             <a href="{% url 'sanction:sanction_list' %}" class="btn btn-primary">Back</a>
         </center>
     </form>
+    </center>
+
 </div>
 {% endblock %}
