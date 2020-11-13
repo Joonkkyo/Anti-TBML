@@ -5,7 +5,6 @@ from config import views
 from config.views import HomeView, AboutTV, UserCreateView, UserCreateDoneTV
 from django.conf import settings
 from django.conf.urls.static import static
-# from sanction.views import SanctionLV
 from sanction.models import SanctionList
 
 
@@ -18,5 +17,4 @@ urlpatterns = [
     path('accounts/register/', UserCreateView.as_view(), name='register'),
     path('accounts/register/done', UserCreateDoneTV.as_view(), name='register_done'),
     path('about/', AboutTV.as_view(), name='about'),
-    # path('sanction/', SanctionLV.as_view(model=SanctionList), name='index'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
