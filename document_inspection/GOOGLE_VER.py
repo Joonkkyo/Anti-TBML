@@ -4,10 +4,23 @@ import argparse
 from enum import Enum
 import io
 import json
-from collections import OrderedDict
-
 from google.cloud import vision
 from PIL import Image, ImageDraw
+import os
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'C:/Users/jkseo/PycharmProjects/Anti_TBML/document_inspection/key.json'
+
+sanc_list = ['Busan', 'Seoul',
+             'AEROCARIBBEAN AIRLINES',
+             'ANGLO-CARIBBEAN CO., LTD.',
+             'BANCO NACIONAL DE CUBA',
+             'BOUTIQUE LA MAISON',
+             'CASA DE CUBA',
+             'CECOEX, S.A',
+             'CIMEX',
+             'CIMEX IBERICA',
+             'CIMEX, S.A.',
+             'COMERCIAL IBEROAMERICANA, S.A.',
+             'Researcher']
 
 
 class FeatureType(Enum):
@@ -56,16 +69,16 @@ def get_document_bounds(document, feature):
             for paragraph in block.paragraphs:
                 for word in paragraph.words:
                     for symbol in word.symbols:
-                        if (feature == FeatureType.SYMBOL):
+                        if feature == FeatureType.SYMBOL:
                             bounds.append(symbol.bounding_box)
 
-                    if (feature == FeatureType.WORD):
+                    if feature == FeatureType.WORD:
                         bounds.append(word.bounding_box)
 
-                if (feature == FeatureType.PARA):
+                if feature == FeatureType.PARA:
                     bounds.append(paragraph.bounding_box)
 
-            if (feature == FeatureType.BLOCK):
+            if feature == FeatureType.BLOCK:
                 bounds.append(block.bounding_box)
 
     # The list `bounds` contains the coordinates of the bounding boxes.
@@ -86,7 +99,6 @@ def boxed_image(image, document, fileout):
         print('boxed_image saved!')
     else:
         image_.show()
-
 
 
 # response를 json으로 저장해줌
@@ -121,14 +133,13 @@ def res_to_json(image,response, save=True, senlen=15, thresh=0.8):
                             place.append((v.x, v.y))
                         similar_word, similarity = find_similar_word(word_text, sanc_list, thresh)
                         output[word_text] = {'place': place, 'danger': similarity, 'similar_word': similar_word}
-
-#    output_name = '../' + image[::-1].strip('gpj.').strip('/')[::-1]
+    print(output)
     output_name = image[::-1].strip('gpj.').strip('/')[::-1]
 
     if save is True:
-            print('json file saved!')
-            with open(output_name+'.json', 'w') as file:
-                json.dump(output, file, indent=1)
+        print('json file saved!')
+        with open(output_name+'.json', 'w') as file:
+            json.dump(output, file, indent=1)
     return output, output_name
 
 
@@ -175,7 +186,7 @@ def str_distance(str1_, str2_):
 def api_main(image_path):
     image = image_path
     response, document = get_document(image)
-    _, output_name = res_to_json(image,response)
+    _, output_name = res_to_json(image, response)
     output_image = output_name + '_boxed.jpg'
     print(output_image)
     boxed_image(image, document, str(output_image))
@@ -192,27 +203,3 @@ def find_similar_word(word, sanc_list, thresh):
 
     return list(similar_word.keys()), list(similar_word.values())
 
-
-sanc_list = ['Busan', 'Seoul',
-             'AEROCARIBBEAN AIRLINES',
-             'ANGLO-CARIBBEAN CO., LTD.',
-             'BANCO NACIONAL DE CUBA',
-             'BOUTIQUE LA MAISON',
-             'CASA DE CUBA',
-             'CECOEX, S.A',
-             'CIMEX',
-             'CIMEX IBERICA',
-             'CIMEX, S.A.',
-             'COMERCIAL IBEROAMERICANA, S.A.']
-
-# if __name__ == '__main__':
-#     parser = argparse.ArgumentParser()
-#     parser.add_argument('detect_file', help='The image for text detection.')
-#     parser.add_argument('-out_file', help='Optional output file', default=0)
-#     args = parser.parse_args()
-#
-#     image = args.detect_file
-#     response, document = get_document(image)
-#     _, output_name = res_to_json(response)
-#     output_image = output_name+'.jpg'
-#     boxed_image(image, document, str(output_image))

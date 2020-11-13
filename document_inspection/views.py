@@ -3,8 +3,10 @@ from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 from document_inspection.GOOGLE_VER import api_main
 
+
 class ScanLV(TemplateView):
     template_name = "document_inspection/scan.html"
+
 
 def upload(request):
     context = {}
