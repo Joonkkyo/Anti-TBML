@@ -48,6 +48,25 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'sanction:sanction_list' %}">Sanction List</a>
         </li>
+        <li class="nav-item dropdown">
+          {% if user.is_active %}
+          <a class="nav-link dropdown-toggle text-black" href="#" data-toggle="dropdown">
+            <i class="fas fa-user"></i>&ensp;{% firstof user.get_short_name user.get_username %}&ensp;
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+            <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
+          </div>
+          {% else %}
+          <a class="nav-link dropdown-toggle text-black" href="#" data-toggle="dropdown">
+              <i class="fas fa-user"></i>&ensp;Anonymous&ensp;
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+            <a class="dropdown-item" href="{% url 'register' %}">Register</a>
+          </div>
+          {% endif %}
+        </li>
       </ul>
     </div>
   </div>
