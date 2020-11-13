@@ -1,4 +1,5 @@
 #export GOOGLE_APPLICATION_CREDENTIALS='/Users/kihun/Desktop/ANTI_TBML/key.json'
+
 import argparse
 from enum import Enum
 import io
@@ -29,7 +30,7 @@ def draw_boxes(image_, bounds, color):
             bound.vertices[1].x, bound.vertices[1].y,
             bound.vertices[2].x, bound.vertices[2].y,
             bound.vertices[3].x, bound.vertices[3].y], None, color)
-    return image
+    return image_
 
 
 # google api를 이용하여 이미지에 대한 response를 받아옴
@@ -89,7 +90,7 @@ def boxed_image(image, document, fileout):
 
 
 # response를 json으로 저장해줌
-def res_to_json(response, save=True, senlen=15, thresh=0.8):
+def res_to_json(image,response, save=True, senlen=15, thresh=0.8):
     # API response to json file
     output = {}
     for page in response.full_text_annotation.pages:
@@ -121,7 +122,8 @@ def res_to_json(response, save=True, senlen=15, thresh=0.8):
                         similar_word, similarity = find_similar_word(word_text, sanc_list, thresh)
                         output[word_text] = {'place': place, 'danger': similarity, 'similar_word': similar_word}
 
-    output_name = '../' + image[::-1].strip('gpj.').strip('/')[::-1]
+#    output_name = '../' + image[::-1].strip('gpj.').strip('/')[::-1]
+    output_name = image[::-1].strip('gpj.').strip('/')[::-1]
 
     if save is True:
             print('json file saved!')
@@ -170,6 +172,16 @@ def str_distance(str1_, str2_):
     return dist
 
 
+def api_main(image_path):
+    image = image_path
+    response, document = get_document(image)
+    _, output_name = res_to_json(image,response)
+    output_image = output_name + '_boxed.jpg'
+    print(output_image)
+    boxed_image(image, document, str(output_image))
+    return output_image
+
+
 # edit distance를 이용하여 thresh(0.8)이상인 애들을 list로 뽑아줌
 def find_similar_word(word, sanc_list, thresh):
     similar_word = {}
@@ -193,14 +205,14 @@ sanc_list = ['Busan', 'Seoul',
              'CIMEX, S.A.',
              'COMERCIAL IBEROAMERICANA, S.A.']
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('detect_file', help='The image for text detection.')
-    parser.add_argument('-out_file', help='Optional output file', default=0)
-    args = parser.parse_args()
-
-    image = args.detect_file
-    response, document = get_document(image)
-    _, output_name = res_to_json(response)
-    output_image = output_name+'.jpg'
-    boxed_image(image, document, str(output_image))
+# if __name__ == '__main__':
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument('detect_file', help='The image for text detection.')
+#     parser.add_argument('-out_file', help='Optional output file', default=0)
+#     args = parser.parse_args()
+#
+#     image = args.detect_file
+#     response, document = get_document(image)
+#     _, output_name = res_to_json(response)
+#     output_image = output_name+'.jpg'
+#     boxed_image(image, document, str(output_image))

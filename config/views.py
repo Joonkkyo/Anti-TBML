@@ -1,7 +1,7 @@
 from django.views.generic.base import TemplateView
 from django.views.generic import CreateView
-from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
+from django.contrib.auth.forms import UserCreationForm
 
 
 class HomeView(TemplateView):

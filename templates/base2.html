@@ -7,46 +7,96 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
   <title>{% block title %}ANTI_TBML{% endblock %}</title>
+
+  <style type="text/css">
+    .asteriskField {
+      display: none;
+    }
+
+    form .alert ul li {
+      list-style: none;
+    }
+
+    form .alert ul {
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+
 </head>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light mb-4" style="background-color:#decdc3">
-    <div class="container">
-      <a class="navbar-brand" href="{% url 'home' %}">ANTI_TBML</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'home' %}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'about' %}">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'document_inspection:upload' %}">Document Inspection</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'sanction:sanction_list' %}">Sanction List</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<nav class="navbar navbar-expand-lg navbar-light mb-4 " style="background-color:#decdc3">
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-10 col-md-12">
-        <div class="card mb-4">
-          <div class="card-body">
-            {% block content %}
-            {% endblock %}
-          </div>
+    <a class="navbar-brand" href="{% url 'home' %}">ANTI_TBML</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'about' %}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'document_inspection:upload' %}">Document Inspection</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'sanction:sanction_list' %}">Sanction List</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-lg-10 col-md-12">
+      <div class="card mb-4">
+        <div class="card-body">
+          {% block content %}
+          {% endblock %}
         </div>
       </div>
     </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<script src="/assets/js/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/jquery-migrate-3.0.0.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/owl.carousel.min.js"></script>
+<script src="/assets/js/jquery.sticky.js"></script>
+<script src="/assets/js/jquery.waypoints.min.js"></script>
+<script src="/assets/js/jquery.animateNumber.min.js"></script>
+<script src="/assets/js/jquery.fancybox.min.js"></script>
+<script src="/assets/js/jquery.stellar.min.js"></script>
+<script src="/assets/js/jquery.easing.1.3.js"></script>
+<script src="/assets/js/bootstrap-datepicker.min.js"></script>
+<script src="/assets/js/isotope.pkgd.min.js"></script>
+<script src="/assets/js/aos.js"></script>
+<script src="/assets/js/typed.js"></script>
+<script src="/assets/js/main.js"></script>
+
+<script>
+            var typed = new Typed('.typed-words', {
+            strings: ["Business","Work"," Service","Career"],
+            typeSpeed: 80,
+            backSpeed: 80,
+            backDelay: 4000,
+            startDelay: 1000,
+            loop: true,
+            showCursor: true
+            });
+</script>
+
+
 </body>
 </html>
