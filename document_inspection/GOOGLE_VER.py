@@ -24,7 +24,7 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'C:/Users/jkseo/PycharmProjects/A
 #              'Researcher']
 data = SanctionList.objects.all()
 # sanc_list = [x.name for x in data]
-sanc_list = ['corrections', 'Issuing']
+sanc_list = ['corrections', 'Issuing', 'Guarantee']
 print(sanc_list)
 
 
@@ -127,6 +127,7 @@ def res_to_json(image, response, save=True, senlen=15, thresh=0.7):
                     word_whole = word_whole.strip()
 
                     similar_word, similarity = find_similar_word(word_whole, sanc_list, thresh)
+
                     output[word_whole] = {'place': place, 'danger': similarity, 'similar_word': similar_word}
                 else:
                     for word in paragraph.words:
