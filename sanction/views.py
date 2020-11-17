@@ -66,13 +66,14 @@ def result(request):
 
 
 def sanction_add(request):
+    sanction = SanctionList.objects.all()
     if request.method == 'POST':
         fm = SanctionRegistration(request.POST)
         if fm.is_valid():
             nm = fm.cleaned_data['name']
             ty = fm.cleaned_data['type']
             pr = fm.cleaned_data['program']
-            reg = SanctionList(name=nm, type=ty, program=pr)
+            reg = SanctionList(id=sanction.count()+1, name=nm, type=ty, program=pr)
             reg.save()
             fm = SanctionRegistration()
         return render(request, 'sanction/sanction_add_done.html', {'form': fm})
@@ -87,7 +88,8 @@ def sanction_delete(request, id):
         sanction = SanctionList.objects.get(pk=id)
         print(sanction.id)
         sanction.delete()
-
+        test = SanctionList.objects.all()
+        print(test.count())
         return HttpResponseRedirect('/sanction/')
 
 

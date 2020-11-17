@@ -7,20 +7,25 @@ import json
 from google.cloud import vision
 from PIL import Image, ImageDraw
 import os
+from sanction.models import SanctionList
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'C:/Users/jkseo/PycharmProjects/Anti_TBML/document_inspection/key.json'
 
-sanc_list = ['Busan', 'Seoul',
-             'AEROCARIBBEAN AIRLINES',
-             'ANGLO-CARIBBEAN CO., LTD.',
-             'BANCO NACIONAL DE CUBA',
-             'BOUTIQUE LA MAISON',
-             'CASA DE CUBA',
-             'CECOEX, S.A',
-             'CIMEX',
-             'CIMEX IBERICA',
-             'CIMEX, S.A.',
-             'COMERCIAL IBEROAMERICANA, S.A.',
-             'Researcher']
+# sanc_list = ['Busan', 'Seoul',
+#              'AEROCARIBBEAN AIRLINES',
+#              'ANGLO-CARIBBEAN CO., LTD.',
+#              'BANCO NACIONAL DE CUBA',
+#              'BOUTIQUE LA MAISON',
+#              'CASA DE CUBA',
+#              'CECOEX, S.A',
+#              'CIMEX',
+#              'CIMEX IBERICA',
+#              'CIMEX, S.A.',
+#              'COMERCIAL IBEROAMERICANA, S.A.',
+#              'Researcher']
+data = SanctionList.objects.all()
+# sanc_list = [x.name for x in data]
+sanc_list = ['corrections', 'Issuing']
+print(sanc_list)
 
 
 class FeatureType(Enum):
@@ -68,9 +73,9 @@ def get_document_bounds(document, feature):
         for block in page.blocks:
             for paragraph in block.paragraphs:
                 for word in paragraph.words:
-                    for symbol in word.symbols:
-                        if feature == FeatureType.SYMBOL:
-                            bounds.append(symbol.bounding_box)
+                    # for symbol in word.symbols:
+                    #     if feature == FeatureType.SYMBOL:
+                    #         bounds.append(symbol.bounding_box)
 
                     if feature == FeatureType.WORD:
                         bounds.append(word.bounding_box)
@@ -102,7 +107,7 @@ def boxed_image(image, document, fileout):
 
 
 # response를 json으로 저장해줌
-def res_to_json(image,response, save=True, senlen=15, thresh=0.8):
+def res_to_json(image, response, save=True, senlen=15, thresh=0.7):
     # API response to json file
     output = {}
     for page in response.full_text_annotation.pages:
@@ -198,6 +203,7 @@ def find_similar_word(word, sanc_list, thresh):
     similar_word = {}
     for sanc in sanc_list:
         similarity = str_distance(word, sanc)
+        print(similarity)
         if similarity >= thresh:
             similar_word[sanc] = similarity
 

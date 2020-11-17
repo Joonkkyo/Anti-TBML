@@ -3,6 +3,7 @@ import argparse
 from enum import Enum
 import io
 import json
+from sanction.models import SanctionList
 from collections import OrderedDict
 
 from google.cloud import vision
@@ -55,16 +56,16 @@ def get_document_bounds(document, feature):
             for paragraph in block.paragraphs:
                 for word in paragraph.words:
                     for symbol in word.symbols:
-                        if (feature == FeatureType.SYMBOL):
+                        if feature == FeatureType.SYMBOL:
                             bounds.append(symbol.bounding_box)
 
-                    if (feature == FeatureType.WORD):
+                    if feature == FeatureType.WORD:
                         bounds.append(word.bounding_box)
 
-                if (feature == FeatureType.PARA):
+                if feature == FeatureType.PARA:
                     bounds.append(paragraph.bounding_box)
 
-            if (feature == FeatureType.BLOCK):
+            if feature == FeatureType.BLOCK:
                 bounds.append(block.bounding_box)
 
     # The list `bounds` contains the coordinates of the bounding boxes.
@@ -85,7 +86,6 @@ def boxed_image(image, document, fileout):
         print('boxed_image saved!')
     else:
         image_.show()
-
 
 
 # response를 json으로 저장해줌
@@ -172,6 +172,7 @@ def str_distance(str1_, str2_):
 
 # edit distance를 이용하여 thresh(0.8)이상인 애들을 list로 뽑아줌
 def find_similar_word(word, sanc_list, thresh):
+    print(sanc_list)
     similar_word = {}
     for sanc in sanc_list:
         similarity = str_distance(word, sanc)
@@ -181,23 +182,29 @@ def find_similar_word(word, sanc_list, thresh):
     return list(similar_word.keys()), list(similar_word.values())
 
 
-sanc_list = ['Busan', 'Seoul',
-             'AEROCARIBBEAN AIRLINES',
-             'ANGLO-CARIBBEAN CO., LTD.',
-             'BANCO NACIONAL DE CUBA',
-             'BOUTIQUE LA MAISON',
-             'CASA DE CUBA',
-             'CECOEX, S.A',
-             'CIMEX',
-             'CIMEX IBERICA',
-             'CIMEX, S.A.',
-             'COMERCIAL IBEROAMERICANA, S.A.']
+# sanc_list = ['Busan', 'Seoul',
+#              'AEROCARIBBEAN AIRLINES',
+#              'ANGLO-CARIBBEAN CO., LTD.',
+#              'BANCO NACIONAL DE CUBA',
+#              'BOUTIQUE LA MAISON',
+#              'CASA DE CUBA',
+#              'CECOEX, S.A',
+#              'CIMEX',
+#              'CIMEX IBERICA',
+#              'CIMEX, S.A.',
+#              'COMERCIAL IBEROAMERICANA, S.A.']
 
+data = SanctionList.objects.all()
+sanc_list = [x.name for x in data]
+print(sanc_list)
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('detect_file', help='The image for text detection.')
     parser.add_argument('-out_file', help='Optional output file', default=0)
     args = parser.parse_args()
+    data = SanctionList.objects.all()
+    sanc_list = [x.name for x in data]
+    print(sanc_list)
 
     image = args.detect_file
     response, document = get_document(image)
