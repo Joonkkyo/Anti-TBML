@@ -8,6 +8,7 @@ from google.cloud import vision
 from PIL import Image, ImageDraw, ImageFont
 import os
 from sanction.models import SanctionList
+import os
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'C:/Users/jkseo/PycharmProjects/Anti_TBML/document_inspection/key.json'
 
 # sanc_list = ['Busan', 'Seoul',
@@ -141,13 +142,16 @@ def res_to_json(image, response, save=True, senlen=15, thresh=0.7):
                         similar_word, similarity = find_similar_word(word_text, sanc_list, thresh)
                         output[idx] = {'word':word_text,'place': place, 'danger': similarity, 'similar_word': similar_word}
                         idx+=1
-    print(output)
-    output_name = image[::-1].strip('gpj.').strip('/')[::-1]
+    dir, file = os.path.split(output)
+    file = file.split('.jpg').split('.png')[0]
+    output_name = './boxed_images/'+file
 
     if save is True:
-        print('json file saved!')
+        if not os.path.isdir('./boxed_images/'):
+            os.makedirs('./boxed_images/')
         with open(output_name+'.json', 'w') as file:
             json.dump(output, file, indent=1)
+        print('json file saved!')
     return output, output_name
 
 
