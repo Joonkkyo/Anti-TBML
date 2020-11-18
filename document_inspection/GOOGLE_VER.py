@@ -24,7 +24,7 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'C:/Users/jkseo/PycharmProjects/A
 #              'Researcher']
 data = SanctionList.objects.all()
 # sanc_list = [x.name for x in data]
-sanc_list = ['corrections', 'Issuing', 'Guarantee']
+sanc_list = ['DISCREPANCIES', 'ACCEPTANCE']
 print(sanc_list)
 
 
