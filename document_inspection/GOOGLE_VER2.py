@@ -51,7 +51,7 @@ def draw_boxes(image, word, bounds, color):
             bounds[1][0], bounds[1][1],
             bounds[2][0], bounds[2][1],
             bounds[3][0], bounds[3][1]], None, color)
-        draw.text(bounds[0], word, (0, 0, 255), font)
+        draw.text((bounds[0][0], bounds[0][1] - 20), word, (0, 0, 255), font)
 
 
     # google api를 이용하여 이미지에 대한 response를 받아옴
@@ -194,10 +194,10 @@ def str_distance(str1_, str2_):
 def api_main(image_path):
     image = image_path
     response, document = get_document(image)
-    _, output_name = res_to_json(image, response)
+    output, output_name = res_to_json(image, response)
     output_image = output_name + '_boxed.jpg'
     print(output_image)
-    boxed_image(image, document, str(output_image))
+    boxed_image(image, output, str(output_image))
     return output_image
 
 
