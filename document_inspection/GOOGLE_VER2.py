@@ -1,16 +1,15 @@
 #export GOOGLE_APPLICATION_CREDENTIALS='/Users/kihun/Desktop/ANTI_TBML/key.json'
 
-import argparse
-from enum import Enum
 import io
 import json
 from google.cloud import vision
 from PIL import Image, ImageDraw, ImageFont
-import os
+from enum import Enum
 from sanction.models import SanctionList
 import os
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'C:/Users/jkseo/PycharmProjects/Anti_TBML/document_inspection/key.json'
 
+result = {}
 # sanc_list = ['Busan', 'Seoul',
 #              'AEROCARIBBEAN AIRLINES',
 #              'ANGLO-CARIBBEAN CO., LTD.',
@@ -25,8 +24,7 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'C:/Users/jkseo/PycharmProjects/A
 #              'Researcher']
 data = SanctionList.objects.all()
 # sanc_list = [x.name for x in data]
-sanc_list = ['corrections', 'Issuing', 'Guarantee']
-print(sanc_list)
+sanc_list = ['corrections', 'Issuing', 'Guarantee', 'Versio']
 
 
 class FeatureType(Enum):
@@ -97,9 +95,10 @@ def get_document_bounds(document, feature):
 def boxed_image(image, output, fileout):
     image_ = Image.open(image)
     for idx in output:
-        word = output[idx]['word']
-        bounds = output[idx]['place']
-        draw_boxes(image_, word, bounds, 'blue')
+        if len(output[idx]['danger']) != 0:
+            word = output[idx]['word']
+            bounds = output[idx]['place']
+            draw_boxes(image_, word, bounds, 'blue')
 
     image_ = image_.convert('RGB')
     image_.save(fileout)
@@ -107,7 +106,7 @@ def boxed_image(image, output, fileout):
 
 
 # response를 json으로 저장해줌
-def res_to_json(image, response, save=True, senlen=15, thresh=0.7):
+def res_to_json(image, response, save=True, sen_len=15, thresh=0.7):
     # API response to json file
     output = {}
     idx = 0
@@ -118,7 +117,7 @@ def res_to_json(image, response, save=True, senlen=15, thresh=0.7):
                 for v in paragraph.bounding_box.vertices:
                     place.append((v.x, v.y))
 
-                if len(paragraph.words) < senlen:
+                if len(paragraph.words) < sen_len:
                     word_whole = ""
                     for word in paragraph.words:
                         word_text = ''.join([
@@ -129,8 +128,9 @@ def res_to_json(image, response, save=True, senlen=15, thresh=0.7):
 
                     similar_word, similarity = find_similar_word(word_whole, sanc_list, thresh)
 
-                    output[idx] = {'word':word_whole, 'place': place, 'danger': similarity, 'similar_word': similar_word}
-                    idx+=1
+                    output[idx] = {'word': word_whole, 'place': place,
+                                   'danger': similarity, 'similar_word': similar_word}
+                    idx += 1
                 else:
                     for word in paragraph.words:
                         place = []
@@ -140,16 +140,19 @@ def res_to_json(image, response, save=True, senlen=15, thresh=0.7):
                         for v in word.bounding_box.vertices:
                             place.append((v.x, v.y))
                         similar_word, similarity = find_similar_word(word_text, sanc_list, thresh)
-                        output[idx] = {'word':word_text,'place': place, 'danger': similarity, 'similar_word': similar_word}
-                        idx+=1
-    dir, file = os.path.split(output)
-    file = file.split('.jpg').split('.png')[0]
-    output_name = './boxed_images/'+file
+                        output[idx] = {'word': word_text, 'place': place,
+                                           'danger': similarity, 'similar_word': similar_word}
+                        idx += 1
 
+    # dir, file = os.path.split(output)
+    # file = file.split('.jpg').split('.png')[0]
+    # output_name = './boxed_images/'+file
+    print(output)
+    output_name = image[::-1].strip('gpj.').strip('/')[::-1]
     if save is True:
         if not os.path.isdir('./boxed_images/'):
             os.makedirs('./boxed_images/')
-        with open(output_name+'.json', 'w') as file:
+        with open(output_name + '.json', 'w') as file:
             json.dump(output, file, indent=1)
         print('json file saved!')
     return output, output_name
