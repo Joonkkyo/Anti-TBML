@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
-from document_inspection.GOOGLE_VER3 import api_main
+from document_inspection.GOOGLE_VER2 import api_main
 
 
 class ScanLV(TemplateView):

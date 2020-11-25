@@ -1,3 +1,6 @@
+#export GOOGLE_APPLICATION_CREDENTIALS='/Users/kihun/Desktop/ANTI_TBML/key.json'
+
+import argparse
 from enum import Enum
 import io
 import json
@@ -7,17 +10,19 @@ from sanction.models import SanctionList
 import os
 import numpy as np
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'C:/Users/jkseo/PycharmProjects/Anti_TBML/document_inspection/key.json'
+#os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'C:/Users/jkseo/PycharmProjects/Anti_TBML/document_inspection/key.json'
+
 # sanc_list = np.load('sancdict.npy',allow_pickle='TRUE').item()
 
-manual = np.load('C:/Users/jkseo/PycharmProjects/Anti_TBML/document_inspection/manual.npy', allow_pickle=True).item()
-stopdict = np.load('C:/Users/jkseo/PycharmProjects/Anti_TBML/document_inspection/stopdict.npy', allow_pickle=True).item()
+stopdict = np.load('stopdict.npy',allow_pickle='TRUE').item()
+manual = np.load('manual.npy',allow_pickle='TRUE').item()
 
 stopdict.update(manual)
 
 data = SanctionList.objects.all()
 sanc_list = [x.name for x in data]
 # sanc_list = ['corrections', 'Issuing', 'Guarantee']
+print(sanc_list)
 
 
 def stopwords(words):
@@ -50,8 +55,8 @@ def draw_boxes(image, output, color):
     danger = max(output['danger'])
     idx = output['danger'].index(danger)
     sim = output['similar_word'][idx]
-    result_ = ''.join(sim + ' ' + str(danger))
-    result = ' '.join([word, ' ::: ', result_])
+    result_= ''.join(sim + ' '+str(danger))
+    result = ' '.join([word, ' ::: ',result_])
 
     for bound in bounds:
         draw.polygon([
@@ -60,6 +65,8 @@ def draw_boxes(image, output, color):
             bounds[2][0], bounds[2][1],
             bounds[3][0], bounds[3][1]], None, color)
         draw.text((bounds[0][0], bounds[0][1] - 20), result, (0, 0, 255), font)
+
+
 
 
     # google api를 이용하여 이미지에 대한 response를 받아옴
@@ -151,13 +158,12 @@ def res_to_json(image, response, save=True, senlen=15, thresh=0.5):
                             place.append((v.x, v.y))
                         similar_word, similarity = find_similar_word(word_text, sanc_list, thresh)
                         if (len(similar_word)>0) and (word_text.lower() not in stopdict):
-                            output[idx] = {'word': word_text, 'place': place,
-                                           'danger': similarity, 'similar_word': similar_word}
-                            idx += 1
-    # dir, file = os.path.split(image)
-    # file = file.split('.jpg')[0]
-    # output_name = './boxed_images/'+file
-    output_name = image[::-1].strip('gpj.').strip('/')[::-1]
+                            output[idx] = {'word':word_text,'place': place, 'danger': similarity, 'similar_word': similar_word}
+                            idx+=1
+    dir, file = os.path.split(image)
+    file = file.split('.jpg')[0]
+    output_name = './boxed_images/'+file
+
     if save is True:
         if not os.path.isdir('./boxed_images/'):
             os.makedirs('./boxed_images/')
@@ -176,9 +182,9 @@ def str_distance(str1_, str2_):
     output : len(str1)-distance / len(str1)
     '''
     # str1 > str2
-    if str1_[0] != str2_[0]:
+    if str1_[0]!=str2_[0]:
         return 0
-    if len(str1_) < 3:
+    if len(str1_)<3:
         return 0
     if len(str1_) > len(str2_):
         str1, str2 = str1_, str2_
@@ -210,16 +216,14 @@ def str_distance(str1_, str2_):
     dist = round(dist, 2)
     return dist
 
-
-def dist_sen(str1, str2, thresh):
+def dist_sen(str1,str2,thresh):
     dist_list = []
     for word1 in str1.split():
         for word2 in str2.split():
             dist_list.append(str_distance(word1, word2))
-    if len(dist_list) > 0 and max(dist_list) > thresh:
-        return round(sum(dist_list)/len(dist_list), 2)
+    if len(dist_list)>0 and max(dist_list) > thresh:
+        return round(sum(dist_list)/len(dist_list),2)
     else: return 0
-
 
 def api_main(image_path):
     image = image_path

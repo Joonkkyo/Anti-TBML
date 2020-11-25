@@ -3,28 +3,17 @@
 {% load static %}
 
 {% block content %}
-<table>
-    <h2>Upload</h2>
-    <form id="upload" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="file" name="document">
-        <button type="submit" onclick="display_clock()">Upload file</button>
-    </form>
-    {% if url %}
-        <p>Uploaded file: <img src="{{ url }}"></p>
-    {% else %}
-    <div id="loader-bg">
 
-    </div>
-    {% endif %}
-</table>
+    <tabel>
+        <h2>Upload</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="document">
+            <button type="submit">Upload file</button>
+        </form>
+        {% if url %}
+            <p>Uploaded file: <img src="{{ url }}"></p>
+        {% endif %}
+    </tabel>
 
-<script>
-    function display_clock() {
-        var temp = document.getElementById('loader-bg');
-        temp.innerHTML =
-              "<img src='/assets/images/loading_img.gif' width='80' height='80' alt='Now Loading...' />" +
-              "<p>" + "Now Loading..." + "</p>";
-    }
-</script>
 {% endblock %}
