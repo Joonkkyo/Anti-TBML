@@ -23,8 +23,9 @@ result = {}
 #              'COMERCIAL IBEROAMERICANA, S.A.',
 #              'Researcher']
 data = SanctionList.objects.all()
-# sanc_list = [x.name for x in data]
-sanc_list = ['corrections', 'Issuing', 'Guarantee', 'Versio']
+sanc_list = [x.name for x in data]
+sanc_list.sort()
+# sanc_list = ['corrections', 'Issuing', 'Guarantee', 'Versio']
 
 
 class FeatureType(Enum):
@@ -37,7 +38,7 @@ class FeatureType(Enum):
 
 # 좌표 정보가 들어오면 이미지에 박스 쳐줌
 # ouput : boxed image
-font = ImageFont.truetype("arial.ttf", 20)
+font = ImageFont.truetype("arial.ttf", 25)
 
 
 def draw_boxes(image, word, bounds, color):
@@ -50,11 +51,14 @@ def draw_boxes(image, word, bounds, color):
             bounds[1][0], bounds[1][1],
             bounds[2][0], bounds[2][1],
             bounds[3][0], bounds[3][1]], None, color)
-        draw.text((bounds[0][0], bounds[0][1] - 20), word, (0, 0, 255), font)
+        draw.text((bounds[0][0], bounds[0][1] - 25), word, (0, 0, 255), font)
+        # draw.text((bounds[0][0] + 20, bounds[0][1] - 20), danger, (0, 0, 255), font)
 
 
-    # google api를 이용하여 이미지에 대한 response를 받아옴
+
+# google api를 이용하여 이미지에 대한 response를 받아옴
 # output : response,document
+
 def get_document(image_file):
     with io.open(image_file, 'rb') as image_file_:
         content = image_file_.read()
@@ -96,7 +100,13 @@ def boxed_image(image, output, fileout):
     image_ = Image.open(image)
     for idx in output:
         if len(output[idx]['danger']) != 0:
+            word = output[idx]['word'] + ',  ' + 'Similarity :' + str(output[idx]['danger'][0])
+            # danger = output[idx]['danger']
+            bounds = output[idx]['place']
+            draw_boxes(image_, word, bounds, 'blue')
+        else:
             word = output[idx]['word']
+            # danger = output[idx]['danger']
             bounds = output[idx]['place']
             draw_boxes(image_, word, bounds, 'blue')
 
@@ -167,14 +177,20 @@ def str_distance(str1_, str2_):
     output : len(str1)-distance / len(str1)
     '''
     # str1 > str2
-
+    if (not 'a' <= str1_[0] <= 'z') or (not 'A' <= str1_[0] <= 'Z'):
+        return 0
+    if len(str1_) < 4:
+        return 0
+    if len(str2_) > 10:
+        str2_ = str2_[0:10]
     if len(str1_) > len(str2_):
         str1, str2 = str1_, str2_
     else:
         str1, str2 = str2_, str1_
     str1, str2 = str1.lower(), str2.lower()
     len1, len2 = len(str1), len(str2)  # vertical / horizontal
-
+    if str1[0] != str2[0]:
+        return 0
     # create distance table
 
     table = [None] * (len2 + 1)
@@ -184,6 +200,7 @@ def str_distance(str1_, str2_):
         table[i][0] = i
     for i in range(1, len1 + 1):
         table[0][i] = i
+
     for i in range(1, len2 + 1):
         for j in range(1, len1 + 1):
             if str1[j - 1] == str2[i - 1]:
