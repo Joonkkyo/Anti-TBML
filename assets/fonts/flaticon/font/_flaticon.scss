@@ -1,13 +1,12 @@
     /*
     Flaticon icon font: Flaticon
-    Creation date: 07/10/2019 05:43
+    Creation date: 06/10/2018 08:32
     */
 
     @font-face {
   font-family: "Flaticon";
   src: url("./Flaticon.eot");
   src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
-       url("./Flaticon.woff2") format("woff2"),
        url("./Flaticon.woff") format("woff"),
        url("./Flaticon.ttf") format("truetype"),
        url("./Flaticon.svg#Flaticon") format("svg");
@@ -37,16 +36,10 @@
   font-smoothing: antialiased;
     }
 
-    .flaticon-debt:before { content: "\f100"; }
-.flaticon-growth:before { content: "\f101"; }
-.flaticon-business-plan:before { content: "\f102"; }
-.flaticon-location:before { content: "\f103"; }
-.flaticon-project-management:before { content: "\f104"; }
-.flaticon-goal:before { content: "\f105"; }
+    .flaticon-layers:before { content: "\f100"; }
+.flaticon-compass-symbol:before { content: "\f101"; }
+.flaticon-idea:before { content: "\f102"; }
     
-    $font-Flaticon-debt: "\f100";
-    $font-Flaticon-growth: "\f101";
-    $font-Flaticon-business-plan: "\f102";
-    $font-Flaticon-location: "\f103";
-    $font-Flaticon-project-management: "\f104";
-    $font-Flaticon-goal: "\f105";
+    $font-Flaticon-layers: "\f100";
+    $font-Flaticon-compass-symbol: "\f101";
+    $font-Flaticon-idea: "\f102";

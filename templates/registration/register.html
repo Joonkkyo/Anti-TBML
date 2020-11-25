@@ -1,44 +1,57 @@
-{% extends 'base2.html' %}
+{% extends 'base3.html' %}
 {% load widget_tweaks %}
 {% block title %} register.html {% endblock %}
 {% load static %}
 
 {% block content %}
 
-<h1>회원가입</h1>
+<section class="hero-wrap hero-wrap-2" style="background-image: url('/assets/images/bg3.jpg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <h1 class="mb-2 bread">Register</h1>
+                <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<br>
+
 {% if form.errors %}
-<div class="alert alert-danger">
+<div class="alert alert-danger page-wrapper">
     <div class="font-weight-bold">Wrong! Please correct the error(s) below.</div>
     {{ form.errors }}
-</div>
+</div>s
 {% endif %}
 
-<form action="." method="post" class="card pt-3">
-    {% csrf_token %}
-    <div class="form-group row">
-        {{ form.username|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
-        <div class="col-sm-5">
-            {{ form.username|add_class:"form-control"|attr:"autofocus" }}
+<center>
+    <form action="." method="post" class="page-wrapper">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.username|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+            <div class="col-sm-5">
+                {{ form.username|add_class:"form-control"|attr:"autofocus" }}
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        {{ form.password1|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
-        <div class="col-sm-5">
-            {{ form.password1|add_class:"form-control" }}
+        <div class="form-group">
+            {{ form.password1|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+            <div class="col-sm-5">
+                {{ form.password1|add_class:"form-control" }}
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        {{ form.password2|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
-        <div class="col-sm-5">
-            {{ form.password2|add_class:"form-control" }}
+        <div class="form-group">
+            {{ form.password2|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+            <div class="col-sm-5">
+                {{ form.password2|add_class:"form-control" }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="offset-sm-3 col-sm-5">
-            <input type="submit" value="Register" class="btn btn-info"/>
+        <div class="form-group">
+            <div>
+                <input type="submit" value="Register" class="btn btn-primary px-4 py-3 mt-3"/>
+            </div>
         </div>
-    </div>
-
-</form>
-
+    </form>
+</center>
 {% endblock %}

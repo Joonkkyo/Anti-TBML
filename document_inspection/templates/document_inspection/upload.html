@@ -1,14 +1,28 @@
 <!doctype html>
-{% extends 'base2.html' %}
+{% extends 'base3.html' %}
 {% load static %}
 
 {% block content %}
-<table>
-    <h2>Upload</h2>
+
+<section class="hero-wrap hero-wrap-2" style="background-image: url('/assets/images/bg3.jpg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <h1 class="mb-2 bread">Upload</h1>
+                <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<br>
+
+<div class="text-center">
     <form id="upload" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="file" name="document">
-        <button type="submit" onclick="display_clock()">Upload file</button>
+        <input type="file" name="document" class="btn btn-light">
+        <button type="submit" class="btn btn-light" onclick="display_clock()">Upload file</button>
     </form>
     {% if url %}
         <p>Uploaded file: <img src="{{ url }}"></p>
@@ -17,7 +31,7 @@
 
     </div>
     {% endif %}
-</table>
+</div>
 
 <script>
     function display_clock() {

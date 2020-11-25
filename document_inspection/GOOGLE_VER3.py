@@ -7,11 +7,11 @@ from sanction.models import SanctionList
 import os
 import numpy as np
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'C:/Users/jkseo/PycharmProjects/Anti_TBML/document_inspection/key.json'
+# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'C:/Users/jkseo/PycharmProjects/Anti_TBML/document_inspection/key.json'
 # sanc_list = np.load('sancdict.npy',allow_pickle='TRUE').item()
 
-manual = np.load('C:/Users/jkseo/PycharmProjects/Anti_TBML/document_inspection/manual.npy', allow_pickle=True).item()
-stopdict = np.load('C:/Users/jkseo/PycharmProjects/Anti_TBML/document_inspection/stopdict.npy', allow_pickle=True).item()
+manual = np.load('C:/git/Anti_TBML/document_inspection/manual.npy', allow_pickle=True).item()
+stopdict = np.load('C:/git/Anti_TBML/document_inspection/stopdict.npy', allow_pickle=True).item()
 
 stopdict.update(manual)
 
