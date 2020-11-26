@@ -7,16 +7,17 @@ from sanction.models import SanctionList
 import os
 import numpy as np
 
-# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'C:/Users/jkseo/PycharmProjects/Anti_TBML/document_inspection/key.json'
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'C:/Users/jkseo/PycharmProjects/Anti_TBML/document_inspection/key.json'
 # sanc_list = np.load('sancdict.npy',allow_pickle='TRUE').item()
 
-manual = np.load('C:/git/Anti_TBML/document_inspection/manual.npy', allow_pickle=True).item()
-stopdict = np.load('C:/git/Anti_TBML/document_inspection/stopdict.npy', allow_pickle=True).item()
+manual = np.load('C:/Users/jkseo/PycharmProjects/Anti_TBML/document_inspection/manual.npy', allow_pickle=True).item()
+stopdict = np.load('C:/Users/jkseo/PycharmProjects/Anti_TBML/document_inspection/stopdict.npy', allow_pickle=True).item()
 
 stopdict.update(manual)
 
 data = SanctionList.objects.all()
 sanc_list = [x.name for x in data]
+print(sanc_list)
 # sanc_list = ['corrections', 'Issuing', 'Guarantee']
 
 
@@ -50,8 +51,10 @@ def draw_boxes(image, output, color):
     danger = max(output['danger'])
     idx = output['danger'].index(danger)
     sim = output['similar_word'][idx]
-    result_ = ''.join(sim + ' ' + str(danger))
-    result = ' '.join([word, ' ::: ', result_])
+    result = sim + ', ' + "similarity :" + str(danger)
+    # result = ''.join(sim + ' ' + str(danger))
+
+    # result = ' '.join([word, ' ::: ', result_])
 
     for bound in bounds:
         draw.polygon([
@@ -62,7 +65,7 @@ def draw_boxes(image, output, color):
         draw.text((bounds[0][0], bounds[0][1] - 20), result, (0, 0, 255), font)
 
 
-    # google api를 이용하여 이미지에 대한 response를 받아옴
+# google api를 이용하여 이미지에 대한 response를 받아옴
 # output : response,document
 def get_document(image_file):
     with io.open(image_file, 'rb') as image_file_:
@@ -107,7 +110,7 @@ def boxed_image(image, output, fileout):
         # word = output[idx]['word']
         # bounds = output[idx]['place']
         # sim = output[idx]['similar_word']
-        # danger = output[idx]['danger']
+        # danger = float(output[idx]['danger'])
         draw_boxes(image_, output[idx], 'blue')
 
     image_ = image_.convert('RGB')
@@ -116,7 +119,7 @@ def boxed_image(image, output, fileout):
 
 
 # response를 json으로 저장해줌
-def res_to_json(image, response, save=True, senlen=15, thresh=0.5):
+def res_to_json(image, response, save=True, senlen=15, thresh=0.6):
     # API response to json file
     output = {}
     idx = 0
@@ -137,9 +140,10 @@ def res_to_json(image, response, save=True, senlen=15, thresh=0.5):
                     word_whole = stopwords(word_whole)
 
                     similar_word, similarity = find_similar_word(word_whole, sanc_list, thresh)
-                    if len(similarity)>0:
-                        output[idx] = {'word':word_whole, 'place': place, 'danger': similarity, 'similar_word': similar_word}
-                        idx+=1
+                    if len(similarity) > 0:
+                        output[idx] = {'word': word_whole, 'place': place,
+                                       'danger': similarity, 'similar_word': similar_word}
+                        idx += 1
                 else:
                     for word in paragraph.words:
                         place = []
@@ -235,26 +239,11 @@ def api_main(image_path):
 def find_similar_word(word, sanc_list, thresh):
     similar_word = {}
     for sanc in sanc_list:
-        similarity = dist_sen(word, sanc,thresh)
+        similarity = dist_sen(word, sanc, thresh)
         # similarity = str_distance(word, sanc)
 
-        if similarity > 0:
+        if similarity > thresh:
             similar_word[sanc] = similarity
 
     return list(similar_word.keys()), list(similar_word.values())
-
-# if __name__ == '__main__':
-#     parser = argparse.ArgumentParser()
-#     parser.add_argument('detect_file', help='The image for text detection.')
-#     parser.add_argument('-out_file', help='Optional output file', default=0)
-#     args = parser.parse_args()
-#     # data = SanctionList.objects.all()
-#     # sanc_list = [x.name for x in data]
-#     # print(sanc_list)
-#     image = args.detect_file
-#     response, document = get_document(image)
-#     output, output_name = res_to_json(image, response, save=True, senlen=15, thresh=0.9)
-#     output_image = output_name+'.jpg'
-#     boxed_image(image, output, str(output_image))
-#     print(response.full_text_annotation.text)
 

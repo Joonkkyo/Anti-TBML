@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-                <h1 class="mb-2 bread">Upload</h1>
+                <h1 class="mb-2 bread">Document Inspection</h1>
                 <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-forward"></i></a></span></p>
             </div>
         </div>
@@ -25,7 +25,10 @@
         <button type="submit" class="btn btn-light" onclick="display_clock()">Upload file</button>
     </form>
     {% if url %}
-        <p>Uploaded file: <img src="{{ url }}"></p>
+    <p>
+        <h4>Scan is completed!</h4>
+        <img src="{{ url }}" width="1400" height="1900">
+    </p>
     {% else %}
     <div id="loader-bg">
 
@@ -37,8 +40,9 @@
     function display_clock() {
         var temp = document.getElementById('loader-bg');
         temp.innerHTML =
+              "<br>" +
               "<img src='/assets/images/loading_img.gif' width='80' height='80' alt='Now Loading...' />" +
-              "<p>" + "Now Loading..." + "</p>";
+              "<p>" + "Now Scanning..." + "</p>";
     }
 </script>
 {% endblock %}

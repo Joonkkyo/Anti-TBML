@@ -13,7 +13,7 @@ def upload(request):
     if request.method == "POST":
         uploaded_file = request.FILES['document']
         fs = FileSystemStorage()
-        name = fs.save(uploaded_file.name, uploaded_file)
+        # name = fs.save(uploaded_file.name, uploaded_file)
         print(fs.path(uploaded_file.name))
         output_image = api_main(fs.path(uploaded_file.name))
         print(output_image)
