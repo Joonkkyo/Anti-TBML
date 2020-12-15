@@ -83,8 +83,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ANTI_TBML',
         'USER': 'admin',
-        'PASSWORD': 'rndepd321',
-        'HOST': 'anti-tbml.cm13xr80y2ts.ap-northeast-2.rds.amazonaws.com',
+        'PASSWORD': '',
+        'HOST': '',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
