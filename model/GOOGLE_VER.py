@@ -148,7 +148,6 @@ def str_distance(str1_, str2_):
     len1, len2 = len(str1), len(str2)  # vertical / horizontal
 
     # create distance table
-
     table = [None] * (len2 + 1)
     for i in range(len2 + 1):
         table[i] = [0] * (len1 + 1)
@@ -169,7 +168,6 @@ def str_distance(str1_, str2_):
     dist = (len(str1) - table[len2][len1]) / len(str1)
     return dist
 
-
 # edit distance를 이용하여 thresh(0.8)이상인 애들을 list로 뽑아줌
 def find_similar_word(word, sanc_list, thresh):
     print(sanc_list)
@@ -181,18 +179,6 @@ def find_similar_word(word, sanc_list, thresh):
 
     return list(similar_word.keys()), list(similar_word.values())
 
-
-# sanc_list = ['Busan', 'Seoul',
-#              'AEROCARIBBEAN AIRLINES',
-#              'ANGLO-CARIBBEAN CO., LTD.',
-#              'BANCO NACIONAL DE CUBA',
-#              'BOUTIQUE LA MAISON',
-#              'CASA DE CUBA',
-#              'CECOEX, S.A',
-#              'CIMEX',
-#              'CIMEX IBERICA',
-#              'CIMEX, S.A.',
-#              'COMERCIAL IBEROAMERICANA, S.A.']
 
 data = SanctionList.objects.all()
 sanc_list = [x.name for x in data]
