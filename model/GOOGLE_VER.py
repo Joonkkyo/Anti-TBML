@@ -1,4 +1,3 @@
-#export GOOGLE_APPLICATION_CREDENTIALS='/Users/kihun/Desktop/ANTI_TBML/key.json'
 import argparse
 from enum import Enum
 import io
