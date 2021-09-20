@@ -16,6 +16,5 @@ soupsieve==2.0.1
 sqlparse==0.4.1
 UploadView==0.2.7
 WebOb==1.8.6
-
 google~=3.0.0
 numpy~=1.19.3
